@@ -94,22 +94,50 @@
         printf("%2i        %i\n",n,two_to_the_n); two_to_the_n*=2;}
         return 0;}
 *********************************************************/
+//
+//#include <stdio.h>
+//
+//int main(void) {
+//    int n, two_to_the_n;
+//
+//    printf("TABLE OF POWERS OF TWO\n\n");
+//    printf(" n     2 to the n\n");
+//    printf("---    ---------------\n");
+//    two_to_the_n = 1;
+//
+//    for(n = 0; n <= 10; ++n)
+//    {
+//        printf("%2i        %i\n", n, two_to_the_n);
+//        two_to_the_n *= 2;
+//    }
+//
+//    return 0;
+//}
 
-#include <stdio.h>
+/*********************************************************
+    Exercise 6
+        A minus sign placed in front of a field width specification causes the field to be displayed left-justified.
+        Substitute the following printf() statement for the corresponding statement in Program 4.2, run the program, and compare the outputs produced by both programs.
 
-int main(void) {
-    int n, two_to_the_n;
+        printf ("%-2i           %i\n", n, triangularNumber);
+*********************************************************/
 
-    printf("TABLE OF POWERS OF TWO\n\n");
-    printf(" n     2 to the n\n");
-    printf("---    ---------------\n");
-    two_to_the_n = 1;
-
-    for(n = 0; n <= 10; ++n)
-    {
-        printf("%2i        %i\n", n, two_to_the_n);
-        two_to_the_n *= 2;
-    }
-
-    return 0;
-}
+// This is another example which serves the same purpose.
+//#include <stdio.h>
+//
+//int main(void) {
+//    int n, two_to_the_n;
+//
+//    printf("TABLE OF POWERS OF TWO\n\n");
+//    printf(" n     2 to the n\n");
+//    printf("---    ---------------\n");
+//    two_to_the_n = 1;
+//
+//    for(n = 0; n <= 10; ++n)
+//    {
+//        printf("%-2i        %i\n", n, two_to_the_n);
+//        two_to_the_n *= 2;
+//    }
+//
+//    return 0;
+//}
