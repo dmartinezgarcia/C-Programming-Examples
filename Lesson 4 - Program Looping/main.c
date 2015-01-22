@@ -148,19 +148,47 @@
         Try to determine its purpose by typing in and running the following program. Experiment by typing in different values each time you are prompted.
 *********************************************************/
 
-#include <stdio.h>
+// It fills empty colums with zeros.
 
+//#include <stdio.h>
+//
+//int main (void)
+//{
+//   int  dollars, cents, count;
+//   for ( count = 1;  count <= 10;  ++count ) {
+//        printf ("Enter dollars: ");
+//        scanf ("%i", &dollars);
+//        printf ("Enter cents: ");
+//        scanf ("%i", &cents);
+//        printf ("$%.3i.%.10i\n\n", dollars, cents);
+//   }
+//   return 0;
+//}
 
+/*********************************************************
+    Exercise 8
+        Program 4.5 allows the user to type in only five different numbers. Modify that program so that the user can type in the number of triangular numbers to be calculated.
+*********************************************************/
 
-int main (void)
-{
-   int  dollars, cents, count;
-   for ( count = 1;  count <= 10;  ++count ) {
-        printf ("Enter dollars: ");
-        scanf ("%i", &dollars);
-        printf ("Enter cents: ");
-        scanf ("%i", &cents);
-        printf ("$%.3i.%.10i\n\n", dollars, cents);
-   }
-   return 0;
-}
+//#include <stdio.h>
+//
+//int main (void)
+//{
+//     int  triNumbers, n, number, triangularNumber, counter;
+//
+//     printf("Input the number of triangular numbers you wish to calculate: ");
+//     scanf("%i", &triNumbers);
+//
+//     for ( counter = 1;  counter <= triNumbers;  ++counter ) {
+//          printf ("What triangular number do you want? ");
+//          scanf  ("%i", &number);
+//          triangularNumber = 0;
+//
+//          for ( n = 1;  n <= number;  ++n )
+//               triangularNumber += n;
+//
+//          printf ("Triangular number %i is %i\n\n", number, triangularNumber);
+//     }
+//
+//     return 0;
+//}
