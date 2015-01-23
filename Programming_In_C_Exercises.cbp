@@ -31,7 +31,19 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="Lesson 1 - Some Fundamentals/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lesson 2 - Compiling and Running your program/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lesson 3 - Variables, Data Types and Arithmetic Expressions/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lesson 4 - Program Looping/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Template/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
