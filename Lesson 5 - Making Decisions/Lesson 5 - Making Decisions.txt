@@ -1,0 +1,248 @@
+*** Chapter Five - Making Decisions
+
+The C programming language provides several decision-making constructs:
+	- The if statement
+	- The switch statement
+	- The conditional operator
+	
+*** The if statement
+
+The general format of the if statement is as follows:
+
+if (expression)
+	program statement (or statements)
+
+An example could be the following:
+
+if (j = 10)
+	i = 10;
+
+Another example with multiple statements could be the following:
+
+if (j == 10) 
+{
+	i = 10;
+	j = 20;
+}
+
+The execution of this program is as follows: The expression is evaluated. If the condition is satisfied (TRUE), the program statements that constitute the if are executed. Otherwise, if the condition is not satisfied, the program statements that follow the if construct are executed and its program statements are ignored.
+
+*** The if-else construct
+
+The if-else is just an extension of the general format of the if statement. The syntax of the if-else construct is as follows:
+
+if (expression)
+	program statement 1 (or statements)
+else
+	program statement 2 (or statements)
+	
+An example, with single line statements and multiple line statements, could be the following:
+
+if (j == 10) 
+	i = 10;
+else 
+{
+	i = 15;
+	j = 20;
+}
+	
+The execution of this construct is as follows: The expression is evaluated. If the condition is satisfied (TRUE), program statement 1 is executed, otherwise, program statement 2 is executed. As you can see, either program statement 1 or program statement 2 are executed, but not both.
+
+*** Compound relational test
+
+A compound relational test is just one or more simple relational tests joined by either a logical AND (&&) or a logical OR (||). 
+
+For example, this is a compound relational test constituted by one relational test:
+
+j < 10
+
+This is a compound relational test constituted by multiple relational tests:
+
+j < 10 && j > 10 || i == 20
+
+When forming compound relational expressions, is useful to use parentheses to aid readability and avoid getting into trouble because of a mistaken assumption about the precedence of the operators in the expression. For Example:
+
+(j < 10 && j > 10) || i == 20
+
+*** Nested if statements
+
+If constructs can be nested up to any desired level, remember that indentation is important to aid in readability. An example of nested if constructs is the following:
+
+if (a)
+	if (c)
+		i = 10;
+	else
+		j = 10;
+else 
+	i = 30;
+
+Something to keep in mind when nesting ifs is the following, for example if the innermost else is deleted:
+
+if (a)
+	if (c)
+		i = 10;
+else 
+	i = 30;
+	
+The remaining else construct is assigned to the innermost if, you can avoid this by using curly braces, which forces the completion of the if statement.
+
+if (a)
+	if (c) 
+	{
+		i = 10;
+	}
+else 
+	i = 30;
+
+*** The else if construct
+
+After a else statement any valid C statement can follow. The preceding construct is so frequently used that it is generally referred to as an else if construct, and the syntax is the following:
+
+if (expression 1)
+	program statement 1 (or statements)
+else if (expression 2)
+	program statement 2 (or statements)
+else
+	program statement 3 (or statements)
+	
+How this construct is executed is straight forward, firs the expression 1 is evaluated, if the condition is satisfied then the program statement 1 is executed and after that the program statements that follow are executed. If the condition is not satisfied the same process is repeated with expression 2, if this condition is not satisfied, then the program statement 3 is executed.
+
+*** The switch statement
+
+The purpose of the switch statement is to successively compare the value of a variable against different values. Its syntax is:
+
+switch (expression)
+{
+	case value1:
+		program statement
+		program statement
+		...
+		break;
+	case value2:
+		program statement
+		program statement
+		...
+		break;
+	case valueN:
+		program statement
+		program statement
+		...
+		break;
+	default:
+		program statement
+		program statement
+		...
+		break;
+}
+
+And an example could be the following:
+
+switch (c)
+{
+	case 1:
+		c = 2;
+		break;
+	case 2:
+		c = 3;
+		break;
+	case 3: 
+		c = 10;
+		break;
+	default:
+		c = 1;
+		break;
+}
+
+The expression enclosed in the parentheses is sucessiely compared against value1, value2, value3... which must be simple constants or constant expressions. If a case is satisfied, its program statements execute. One particular thing about the switch statements is that the program statements that constitute the cases do not need to be enclosed within curly braces.
+
+The break statement ends each particular case and causes the execution of the switch to end, executing the program statements that follow the switch. If the break statement is ommited, the program execution continues on the next case.
+
+The special optional case called default is executed if none of the cases are satisfied. The break statement in this case is not necessary but it is a good programming habit to include this statement at the end of every case.
+
+Two case values can't be the same, but you can associate more than one case value with the same block of program statements, for example:
+
+switch (c)
+{
+	...
+	case 10:
+	case 20:
+		c = 30;
+		break;
+	...
+}
+
+*** Boolean Variables
+
+Boolean variables are usually called flags. These variables contain a on or off, black or white, true or false kind of value. Its syntax is:
+
+_Bool
+
+For example:
+
+_Bool a = 0;
+
+The value of 1 is used to represent the TRUE or on state, and the value of 0 is used to represent the FALSE or off state. In C language, a TRUE value is a nonzero value, while a false value is a zero value. For example the following expression evaluates to TRUE:
+
+if (100)
+	...
+
+While the folling expression evaluates to FALSE:
+
+if (0)
+	...
+	
+Whenever a relational expression is evaluated, it is given the value of 1 if it is satisfied (TRUE) or it is given the value of 0 if it is not satisfied (FALSE). For example, the evaluation of the following statement is executed as follows:
+
+if (number < 0)
+	number = -number;
+	
+First, the relational expression is evaluated. If the condition is satisfied, number is less than zero, the value of the expression is 1, otherwise its value is zero. Second, the if statement tests the result of the expression evaluation. If the result is non zero, the program statements that constitute the if statement are executed, otherwise the statements that follow the if statements are executed.
+
+This also applies for the evaluations of conditions inside for, while, do... 
+
+This said. you can easily test the value of a flag like:
+
+if (Flag)
+	...
+
+Similarly, you can test if the value of a flag is FALSE like:
+
+if (!Flag)
+	...
+	
+Following from this, you can easily change the value of a flag like:
+
+Flag = !Flag;
+
+You can also use the bool, true and false statements if you add the stdbool.h library to your project. This is mainly for cosmetic purposes as you can use bool to declare a boolean variable instead of _Bool.
+
+*** The Conditional Operator
+
+The conditional operator takes three operands, the first before a question mark (?), the second between the ? and the :, and the third after the :. Its syntax is as follows:
+
+(condition) ? expression 1 : expression 2
+
+It is mostly used to assign values to variables, for example:
+
+a = x < 10 ? 5 : x * x;
+
+If the result of the evaluation of the condition is TRUE, then expression1 is evaluated and the result of the evaluation becomes the result of the operation. If the condition evaluates to false, expression 2 is evaluated instead and the result of the evaluation becomes the result of the operation.
+
+You can nest conditional operators, for example:
+
+sign = (number < 0) ? -1 : ((number == 0) ? 0 : 1);
+
+In this case the parenthesis are not needed, as the conditional operators groups from right to left, this means the expresion above is evaluated as:
+
+e1 ? e2 : (e3 ? e4 : e5)
+
+The conditional operator is very handy when writing preprocessor macros and its also used outside of assigning values to variables.
+
+*** Precision modifiers
+
+A precision modifier is used after a format character f or e. It's function, for example in printf, is to show the corresponding value to the specified number of decimal places, rounded. For example:
+
+printf("%.2f\n", 3.141516F);
+
+In this expresion the number displayed is 3.14.
+
