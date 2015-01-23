@@ -70,40 +70,61 @@
             100.25 S            Set accumulator to 100.25
 *********************************************************/
 
-#include <stdio.h>
-
-int main ()
-{
-    int n = 0, acc = 0;
-    char op = 0;
-
-    printf("Please enter a number and an operator (+-*/SE): ");
-    scanf("%i %c", &n, &op);
-    printf("\n");
-
-    switch (op)
-    {
-    case '+':
-        acc += n;
-        break;
-    case '-':
-        acc -= n;
-        break;
-    case '*':
-        acc *= n;
-        break;
-    case '/':
-        acc /= n;
-        break;
-    case 'S':
-        acc
-        break;
-    case 'E':
-        break;
-    default:
-        printf("Unknown operator.")
-        break;
-    }
-
-
-}
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//int main ()
+//{
+//    float n = 0;
+//    float acc = 0.0F;
+//    bool exit = false;
+//    char op = '0';
+//
+//    while (!exit)
+//    {
+//        printf("Please enter a number and an operator (+-*/SE): ");
+//        scanf("%f %c", &n, &op);
+//        printf("\n");
+//        printf("%.3f %c          ", n, op);
+//
+//        switch (op)
+//        {
+//        case '+':
+//            acc += n;
+//            printf("Add %f to accumulator.", n);
+//            break;
+//        case '-':
+//            acc -= n;
+//            printf("Substract %f to accumulator.", n);
+//            break;
+//        case '*':
+//            acc *= n;
+//            printf("Multiply by %f accumulator.", n);
+//            break;
+//        case '/':
+//            if (n != 0)
+//            {
+//                acc /= n;
+//                printf("Divide by %f accumulator.", n);
+//            }
+//            else
+//                printf("Division by zero not allowed.");
+//            break;
+//        case 'S':
+//            printf("Set to %f accumulator.", n);
+//            acc = n;
+//            break;
+//        case 'E':
+//            printf("Exit from program.");
+//            exit = true;
+//            break;
+//        default:
+//            printf("Unknown operator.");
+//            break;
+//        }
+//
+//        printf("\n= %.6f          Contents of the accumulator.\n", acc);
+//    }
+//
+//    return 0;
+//}
