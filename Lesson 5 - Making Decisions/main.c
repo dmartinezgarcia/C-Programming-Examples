@@ -50,3 +50,60 @@
 //
 //    return 0;
 //}
+
+/*********************************************************
+    Exercise 4
+        Write a program that acts as a simple "printing" calculator. The program should allow the user to type in expressions of the form:
+            number operator
+        The following operators should be recognized by the program:
+            + - * / S E
+        The S operator tells the program to set the accumulator to the typed-in number. The E operator tells the program that execution is to end.
+        The arithmetic operations are performed on the contents of the accumulator with the number that was keyed in acting as second operand.
+        The following is a sample run showing how the program should operate
+            Begin calculations
+            10 S                Set accumulator to 10
+            = 10.000000         Contents of accumulator
+            2 /                 Divide by 2
+            = 5.000000          Contents of accumulator
+            55 -                Substract 55
+            -50.000000
+            100.25 S            Set accumulator to 100.25
+*********************************************************/
+
+#include <stdio.h>
+
+int main ()
+{
+    int n = 0, acc = 0;
+    char op = 0;
+
+    printf("Please enter a number and an operator (+-*/SE): ");
+    scanf("%i %c", &n, &op);
+    printf("\n");
+
+    switch (op)
+    {
+    case '+':
+        acc += n;
+        break;
+    case '-':
+        acc -= n;
+        break;
+    case '*':
+        acc *= n;
+        break;
+    case '/':
+        acc /= n;
+        break;
+    case 'S':
+        acc
+        break;
+    case 'E':
+        break;
+    default:
+        printf("Unknown operator.")
+        break;
+    }
+
+
+}
