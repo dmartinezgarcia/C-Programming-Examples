@@ -43,6 +43,9 @@
 		<Unit filename="Lesson 4 - Program Looping/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 5 - Making Decisions/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Template/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
