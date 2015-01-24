@@ -167,3 +167,69 @@
 //    printf ("\n");
 //    return 0;
 //}
+
+/*********************************************************
+    Exercise 6
+        Write a program that takes an integer keyed in from the terminal and extracts and displays each digit of the integer in English. So, if the user types in 932, the program should display
+            nine three two
+        Remember to display “zero” if the user types in just a 0. (Note: This exercise is a hard one!)
+*********************************************************/
+
+//#include <stdio.h>
+//
+//int main ()
+//{
+//    int n = 0, digit = 0, op = 1;
+//
+//    printf("Please input an integer number: ");
+//    scanf("%i", &n);
+//
+//    while (n >= op || (n == 0 && op == 1))
+//        op = op * 10;
+//
+//    do
+//    {
+//        op /= 10;
+//        digit = n / op;
+//
+//        switch (digit)
+//        {
+//        case 1:
+//            printf("one ");
+//            break;
+//        case 2:
+//            printf("two ");
+//            break;
+//        case 3:
+//            printf("three ");
+//            break;
+//        case 4:
+//            printf("four ");
+//            break;
+//        case 5:
+//            printf("five ");
+//            break;
+//        case 6:
+//            printf("six ");
+//            break;
+//        case 7:
+//            printf("seven ");
+//            break;
+//        case 8:
+//            printf("eight ");
+//            break;
+//        case 9:
+//            printf("nine ");
+//            break;
+//        case 0:
+//            printf("zero ");
+//            break;
+//        }
+//
+//        n = n % op;
+//    } while (n);
+//
+//    printf("\n");
+//    return 0;
+//}
+
