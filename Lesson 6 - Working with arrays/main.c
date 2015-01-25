@@ -70,3 +70,29 @@
 //
 //    return 0;
 //}
+
+/*********************************************************
+    Exercise 4
+        Write a program that calculates the average of an array of 10 floating-point values.
+*********************************************************/
+
+//#include <stdio.h>
+//
+//int main()
+//{
+//    float vals[10] = {0, 0, 0}, sum = 0.0F;
+//    int index = 0;
+//
+//
+//    for (index = 0; index < 10; index++)
+//    {
+//        printf("\nIntroduce a number (%2i/10): ", index + 1);
+//        scanf("%f", &vals[index]);
+//        printf("Number introduced: %.3f\n", vals[index]);
+//        sum += vals[index];
+//    }
+//
+//    printf("\n\nThe average of the numbers introduced is: %.3f.\n", sum / 10.0F);
+//
+//    return 0;
+//}
