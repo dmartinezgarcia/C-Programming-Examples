@@ -96,3 +96,56 @@
 //
 //    return 0;
 //}
+
+/*********************************************************
+    Exercise 5
+        What output do you expect from the following program?
+*********************************************************/
+
+// The output is: 1 1 2 4 8 16 32 64 128 256
+
+//#include <stdio.h>
+//
+//int main (void)
+//{
+//    int numbers[10] = { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//    int  i, j;
+//
+//    for ( j = 0;  j < 10;  ++j )
+//        for ( i = 0;  i < j;  ++i )
+//            numbers[j]  +=  numbers[i];
+//
+//    for ( j = 0;  j < 10;  ++j )
+//        printf ("%i ", numbers[j]);
+//
+//    printf ("\n");
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 6
+        You don’t need to use an array to generate Fibonacci numbers. You can simply use three variables: two to store the previous two Fibonacci numbers and one to store the current one. Rewrite Program 6.3 so that arrays are not used. Because you’re no longer using an array, you need to display each Fibonacci number as you generate it.
+*********************************************************/
+
+//#include <stdio.h>
+//
+//int main (void)
+//{
+//    int  F_0, F_1, F_2, i;
+//
+//    printf("This program will generate the first 15 Fibonacci numbers.\n");
+//    F_0 = 0;    // by definition
+//    F_1 = 1;    // ditto
+//
+//    for ( i = 2;  i < 15;  ++i )
+//    {
+//        F_2 = F_0 + F_1;
+//        printf("%i ", F_2);
+//        F_0 = F_1;
+//        F_1 = F_2;
+//    }
+//
+//    printf("\n");
+//
+//    return 0;
+//}
