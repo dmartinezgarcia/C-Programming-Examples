@@ -182,3 +182,14 @@
 //        j = 1;
 //    }
 //}
+
+/*********************************************************
+    Exercise 8
+        Find out if your compiler supports variable-length arrays. If it does, write a small program to test the feature out.
+*********************************************************/
+
+//int main()
+//{
+//    int x = 5;
+//    int y[x+1];
+//}
