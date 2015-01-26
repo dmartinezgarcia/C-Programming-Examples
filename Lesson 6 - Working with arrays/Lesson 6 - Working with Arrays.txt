@@ -1,0 +1,140 @@
+Lesson 6 - working with arrays
+
+This chapter describes the basics of arrays, how can they be defined and manipulated, including:
+	- Setting up simple arrays
+	- Initializing arrays
+	- Working with character arrays
+	- Using the const keyword
+	- Implementing multidimensional arrays
+	- Creating variable-length arrays
+
+*** Defining an arrays
+
+Like variables, arrays need to be defined, you must use the following notation in order to declare an array:
+
+type name[number_of_elements]
+
+As you can see, the declaration involves defining the type of element that will be contained in the array, the name of the array, and the maximum number of elements that will be stored inside the array. The C compiler needs to know the maximum number of elements to be stored to determine how much memory space to reserve for that array).
+
+You can access arrays using the following C notation:
+
+x[i]
+
+Where i is the index or subscript. This index is zero based, this means that to read the first element of an array you would use the following expresion:
+
+x[0]
+
+And in order to read the last element of an array you would use the following expression:
+
+x[number_of_elements - 1]
+
+Because it is zero based, it is easier to speak about element number zero of an array rather than the first element. For example, in the following expression:
+
+x[5]
+
+It is easier to speak about element number 5 rather than the sixth element of an array.
+
+You can also used variables inside array brackets to access a particular element of the array, for example:
+
+x[low + high]
+
+Something to keep in mind is that C does not do any checking of array bounds, and using non valid subscripts can cause unwanted and unpredictable results. For example, for the following array:
+
+int x[100];
+
+The range of valid subscripts is from 0 to 99, a non valid subscript, like 150, will cause unpredictable behaviour.
+
+The elements of the array can be manipulated in the same fashion as ordinary variables, for example these program statements:
+
+int  values[10];
+
+values[0] = 197;
+values[2] = -100;
+values[5] = 350;
+values[3] = values[0] + values[5];
+values[9] = values[5] / 10;
+--values[2];
+
+Cause the following:
+
+[IMG]IMG1.PNG[IMG]
+
+The unitialized elements, (elements 4, 6, 7, 8) have meaningless and random values. This is why no assumptions should be made regarding the value of uninitialized variables.
+
+*** Initializing Arrays
+
+There are multiple ways to initialize arrays, for example you can fully initialize an integer array like this:
+
+int integers[5] = {0, 1, 2, 3, 4};
+
+And similarly for an array of characters:
+
+char characters[5] = {'a', 'b', 'c', 'd', 'e'};
+
+It is not necesarily to completely initialize an array. If some of the initial values are specified, then an equal amount of elements are initialized and the remaining elements are initialized to zero. For example:
+
+float sample_data[500] = {100.0, 300.0, 500.5};
+
+By enclosing an element number in a pair of brackets, specific array elements can be initialized in any order. For example, the following expression causes the same result as before:
+
+float sample_data[500] = {[2] = 500.5, [1] = 300.0, [0] = 100.0};
+
+You can also assign variable values during the initialization as:
+
+float sample_data[500] = {[9] = x + 1, [2] = 3, [1] = 2, [0] = 1};
+
+C does not provide any shortcuts to initialize all the elements of an array. This is usually performed with a for array like this:
+
+for (i = 0; i < number_of_elements; i++) 
+	x[i] = 1;
+
+The C language allows you to define an array without specifying the number of elements, the size of the array in this case is determined automatically based on the number of initialization elements. In the following example, the size of the array is six.
+
+char word[] = {'H', 'e', 'l', 'l', 'o', '!'};
+
+Another way to initialize an array without explicitely indicating the dimension of the array is as follows:
+
+float sample_data = {[0] = 1.0, [49] = 100.0};
+
+In this case, the largest subscript specified sets the size of the array.
+
+*** The const qualifier
+
+The compiler allows you to associate the const qualifier with variables whose values will not be changed by the program, if you try to modify a variable with the const qualifier after initializing it you will receive a compiler error. The compiler places variables with this qualifier into read-only memory, normally, instructions of your program are also placed into read-only memory. As an example:
+
+const double pi = 3.141592;
+
+*** Multidimensional Arrays
+
+The C languages allows arrays of any dimension to be defined. In particular, for two dimensional arrays, you can declare an array of this kind with initialization values as follows:
+
+int M[4][5] = 	{
+					{10, 5, -3, 17, 82},
+					{9, 0, 0, 8, -, -7},
+					{32, 20, 1, 0, 14},
+					{0, 0, 8, 7, 6}
+				};
+				
+The aforementioned initialization is equal to:
+
+int  M[4][5] = { 10, 5, -3, 17, 82, 9, 0, 0, 8, -7, 32, 20, 1, 0, 14, 0, 0, 8, 7, 6 };
+
+Which causes the following matrix to be created:
+
+[IMG]IMG2.PNG[/IMG]
+
+You can also initializa certain elements and the rest of the elements will be initialized to zero. You can use the same rules as single dimesional arrays to access certain elements of multiple dimension arrays.
+
+*** Variable Length Arrays
+
+The ANSI C11 standard makes support for variable length arrays optional. Check your compiler documentation to see if in fact this feature is supported. An example of this is the following:
+
+int i = 5;
+int x[i];
+
+
+
+
+
+
+
