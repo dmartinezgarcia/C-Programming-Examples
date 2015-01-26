@@ -1,0 +1,251 @@
+*** Lesson 7 - Working With Functions
+
+When you break your programming into functions, it will be easier to read, understand, debug, modify and maintain. This chapter is packed with the following information:
+
+	- Understanding the basics of functions
+	- Explaining local, global, automatic and static variables
+	- Using single-dimensional and multi-dimensional arrays with functions
+	- Returning data from functions
+	- Using functions to execute top-down programming
+	- Calling functions from within other functions, as well as recursive functions.
+
+*** Defining a function.
+
+A function or routine can be defined using the following syntax:
+
+<qualifier> <return type> <name> (<arguments>) 
+{
+
+}
+
+For example:
+
+void printMessage (void)
+{
+	printf("Programming is Fun.\n");
+}
+
+In order from left to right The first line of a functions definition tells the compiler, in order from left to right, four things about the function:
+	1. Who can call it.
+	2. The type of value it returns.
+	3. Its name.
+	4. The arguments it takes.
+	
+If you wanted to call the function above from your main program, you would do it like this:
+
+int main() 
+{
+	printMessage();
+	...
+}
+
+*** Arguments and local variables
+
+Arguments of a function are enclosed within parentheses, and are defined in this way:
+
+... (<qualifier> <type> namearg1, <qualifier> <type> namearg2...) ...
+
+As a result, in the following expression:
+
+void calculateFibonnaci (int n) ...
+
+n is an argument.
+
+When a variable is passed to a function as an arguemnt, the value of the variable is automatically copied into the formal parameter or argument by the system. Therefore, any changes made to this argument within a function affect only the value of the formal parameter and not the value of the variable. It is not possible for a function to change the value of any of its arguments, it can only change copies of them.
+
+When you pass a variable as an arguments without equal types, you should cast the variable to the type of the argument. While this is not necessary because the compiler might do it for you, since it already knows the function because of the function prototype, it improves program readability.
+
+*** Function prototype declaration
+
+The function prototype declaration defines the function and can be expressed as follows:
+
+<qualifier> <return type> <name> (<arguments>) 
+
+It tells the compiler the necessary information to identify the function. The names chosen for the arguments are called formal parameter names, along with the function name itself, these names must comply with the same naming rules as variables. You can later use these names to manipulate the arguments inside the function.
+
+*** Automatic local variables
+
+Variables defined inside a function are known as automatic local variables because they are automatically created each time the function is called, and because their values are local to the function. Local variables can only be accessed by the function in which the variable is defined and if this variable was initialized to an initial value, this initial value is assigned to the variable each time the function is called.
+
+When defining a local variable inside a function, it is more precise to use the qualifier auto, however the C compiler assumes by default that all variables defined within functions are automatic local variables, so the keyword auto is barely used.
+
+Examples of automatic local variables:
+
+int Hello()
+{
+	int a = 0, b = 0;
+	char c = 'c';
+	float d = 10.0F;
+	...
+}
+
+The C language provides a convenient mechanism to return the results of a function to the calling routine. The general syntax of this construct is as follows:
+
+return expression;
+
+Parentheses are sometimes used depeding on the programmers style. Expression must be of the same type as the return value type indicated in the function prototype declaration. In case no return type is specified in the function prototype header and the function returns an expression, the compiler assumes a default type of int. However, the return type should always be specified when the function returns an expression.
+
+If the return type in the function prototype is the keyword void, this means the function returns no value. If you use a function defined like this to assign a value to a variable you will get a compiler error, like in the following example:
+
+void calculateInt (int n)
+{
+	...
+}
+
+int main ()
+{
+	...
+	number = calculateInt(40);
+	...
+}
+
+*** Functions Calling Functions Calling...
+
+A function always has its own set of formal parameters and local variables, you can declare functions which share the same names on formal parameters and local variables and the C compiler won't confuse them. Another way of saying this for local variables is that the scope of a local variable is the function which it is defined, although there are mechanism for indirectly accesing a local variable from outside a function (pointers...).
+
+*** Declaring return types and argument types
+
+The C Compiler assumes that a function returns a value of type int by default, unless either of the following has occurred:
+
+	- The function has been defined in the program before the function call is encountered.
+	- The value returned by the function has been declared before the function call is encountered.
+
+You must declare the type of result, the number of arguments the function takes and what their types are before the function is called, most C compilers catch this error and generate the corresponding diagnostic message. This can be declared inside a function or outside it, in the latter case it is usually done at the beginning of the file. For example:
+
+void squareroot(int n) 
+{
+	void f2(float);
+	f2((float)n);
+}
+
+Is the same as:
+
+void f2(float);
+
+void squareroot(int n)
+{
+	f2((float)n);
+}
+
+For a function that returns a float value and takes as an argument a float argument, you would do it as follows:
+
+float FName(float);
+
+The names of the arguments are ignored by the compiler so it is not necessary to include them and they could be different from the function definition. In order to improve readability and as a good programming practice, include the names of the arguments with the same names as in the function definition. 
+
+If the function doesn't take an argument, use the void keyword enclosed in the parentheses, and if the function doesn't return a value, use the keyword void inmediately before the function name. If the function takes a variable number of arguments, you can define it like this:
+
+float FName(float, ...);
+
+Regarding standard library functions like scanf or printf, the purpose of the #include preprocessor directive is to put the function declarations mentioned in the file where those functions are meant to be used.
+
+The compiler automatically converts your arguments to the appropiate types when a function is called, but only if you have placed the function's definition or have declared the function and its arguent types before the call. As mentioned earlier, is good programming practice to avoid the Compiler from performing these conversion and let the programmer cast the arguments to the appropiate types, as it causes clearer code and aids readability.
+
+*** Reminders and suggestions about functions
+
+	1. Remember that by default, the compiler assumes that a function returns an int.
+	2. When defining a function that returns an int, define it as such.
+	3. When defining a function that doesn't return a value, define it as void.
+	4. The compiler converts your arguments to agree with the ones the function expects only if you have previously defined or declared the function.
+	5. To play it safe, declare all functions in your program, even if they are defined before they are called. (You might decide later to move them somewhere else in your file or even to another file).
+	
+*** Checking Function Arguments
+
+You should always check that the arguments given to a function are within reason, for example, for an squareroot function for real numbers it wouldn't be appropiate to give a negative number as an argument. You should perform tests or checks to avoid this kind of situation inside the function itself. For example for the aforementioned square root function:
+
+float squareRoot (float x)
+{
+	...
+	if (x < 0)
+	{
+		printf("Invalid value.\n");
+		return -1.0;
+	}
+		
+	...
+}
+
+In this sense, the return value becomes quite useful as it can be used to inform the calling function of errors.
+
+*** Top-Down programming
+
+The notion of functions that call functions which in turn call other functions and so on, is the basis for producing good and structured programs. All the details concerned with an specific function should be contained within that specific function, and not outside of it. This makes possible to write a call to a function before you even write the instructions of the function itself, as long as you specify the arguments that the function takes and the value it returns.
+
+This technique makes programs easier to write and also makes them easier to read. As an example:
+
+int main()
+{
+	printf("Square root of 5: %f\n", SquareRoot(5));
+	return 0;
+}
+
+A programmer doesn't need to know the intrinsics of the SquareRoot function to know what this program does, but he is free to study this function in he desires more detailed knowledge about the program.
+
+By defining small, independent functions that perform well-defined tasks, you can build upon these functions to accomplish more sophisticated tasks and also make use of them for other related programming applications. This type of program methodology is the key to the development of programs that are easy to write understand modify and maintain.
+
+*** Functions and arrays
+
+It is possible to pass the value of an Array element and an entire array as an argument to a function. In the first case you can do it as follows:
+
+FName(AName[x]);
+
+In the second case it becomes a bit more complicated. Think of the following example:
+
+int FName(int x[20]);
+
+You might think that this function takes as an argument an array of precisely 20 elements, however, it can actually take as an argument an array of any number of elements, as when you perform a declaration what the compiler is concerned with is the fact that the function expects an array as an argument and now how many elements are in it. This means that the value 20, which indicates the number of elements of the array, is ignored by the Compiler.
+
+The appropiate way to pass an array as an argument would be to use two arguments, one which which references the array and another one which references the size of this array. Remember to use the curly braces to tell the C compiler that the type is actually an array and not a single variable.
+
+int FName(int x[], int number_of_elements_in_x);
+
+This does not totally apply for multidimensional arrays, for example, for two-dimensional arrays the number of rows can be omitted but the declaration must contain the number of columns in the array. The following declarations could be valid:
+
+void FName(int x[][10]);
+void FName(int x[10][10]);
+
+But not the following:
+
+void FName(int x[10][]);
+void FName(int x[][]);
+
+You can take advantage of the variable-sized array feature to pass as an argument a multidimensional array of a variable number of rows and columns like this, just take note that the number of rows and colums is defined before the array argument so the C compiler knows about these dimensions and doesn't cause an error.
+
+void FName(int Rows, int Cols, int x[Rows][Cols]);
+
+The same could be made with single dimension arrays.
+
+When using assignment operators with entire arrays (This does not apply when passing individual elements) passed as arguments, you will notice that the values contained in the original array will change. This is because contrary to variables, which a copy of the variable is passed as an argument instead of the original variable, when passing arrays as arguments the entire contents of the array are not copied into the formal parameter array, the function gets passed informtation describing where in the computer's memory the array is located and the manipulations or changes to the formal parameter inside the function are actually made to the original array.
+ 
+**** Global Variables
+
+Global variables can be accessed and manipulated by any function in the program. Global variables are declared outside functions. The main motivation for global variables is to declare variables that are to be used by many functions in the program, which would passing it as arguments through all the functions. However the main drawback is that this reduces the generality of the functions as they require to address a variable by its particular name. You must also ensure that this variable actually exists.
+
+It will also reduce program readability. This stems from the fact that if you use global variables, the particular purpose of a function is not evident by just simply examining the function's header. For this purpose, some programmers adopt the converion of prefixing all global variables with the letter 'g', for example:
+
+int gName1;
+int gName[20];
+char gChar;
+float gFloat;
+
+int main () {
+	...
+}
+
+This way is easier to notice which variables are global and which aren't.
+
+A final thing about variables is that, while local variables have no initial values, global variables all have the initialization value of zero. This means that in the following expression:
+
+int gArray[100];
+
+int main () {
+	...
+}
+
+All elements of the array would be initialized to zero.
+
+
+
+
+
+
