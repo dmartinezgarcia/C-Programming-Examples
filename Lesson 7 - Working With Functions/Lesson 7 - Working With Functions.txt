@@ -244,8 +244,52 @@ int main () {
 
 All elements of the array would be initialized to zero.
 
+*** Automatic and Static variables
 
+When you declare local variables inside a function you are declaring automatic local variables. The keyword auto can precede the declaration of such variables but it is optional because it is the default case. For example:
 
+void FName() 
+{
+	const float epsilon = 1.0F;
+	float guess = 1.0F;
+}
 
+An automatic variable is created each time the function is called, if you assign an initial value to the variable, it will have that initial value every time the function is called. An automatic variable disappears after the function completes execution, the value of that variable disappears along with it. In other words, the value an automatic variable has when a function finishes execution is guaranteed not to exist the next time the function is called. These variables have no default initial value.
+
+In contrast, the qualifier static is quite different. The value a static variable has upon leaving a function is the same value that variable will have the next time the function is called. A static variable is initialized only once at the start of the overall program execution and not each time that the function is called. The initial value for a static variable must be a constant or constant expression. Static variables's default initial value is zero. An example could be the following:
+
+void auto_static (void)
+{
+	static int staticVar = 100;
+}
+
+If you add a reinitialization, like in the example below, the static variable loses its purpose.
+
+void auto_static (void)
+{
+	static int staticVar = 100;
+	
+	staticVar = 100;
+}
+
+The choice of whether to use a static variable or an automatic variable depends upon the intended use of the variable. If you want the variable to retain its value from one function call to the next, for example a variable that doesn't need to be reinitialized each time the function is called, use a static variable as avoiding redundant initializations can improve the efficiency of your program specially with arrays. If the value of a local variable must be initialized at the beginning of each function call an automatic variable is the logical choice.
+
+*** Recursive functions
+
+Recursive functions are used to solve problems that can be solved by sucessively applying the same solution to subsets of the problem. A common example is the factorial of a number:
+
+unsigned long int factorial(unsinged int n)
+{
+	unsigned long int result;
+	
+	if (n == 0)
+		result = 1;
+	else
+		result = n * factorial(n-1);
+	
+	return result;
+}
+
+Note that a recursive function always includes a call to itself. Each time a function is called in C, recursive or not, the function gets its own set of local variables and formal parameters with which to work. 
 
 
