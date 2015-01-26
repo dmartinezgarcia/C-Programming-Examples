@@ -46,6 +46,9 @@
 		<Unit filename="Lesson 5 - Making Decisions/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 6 - Working with arrays/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Template/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
