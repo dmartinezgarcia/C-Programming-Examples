@@ -189,5 +189,61 @@ struct dateAndTime events[100];
 You can access the structures inside the structure and their members using subindexes and periods, for example:
 
 events[0].stime.hour = 12;
+events[0].sdate.day = 10;
 
+*** Structures containing arrays
+
+Structures can contain arrays as members. For example:
+
+struct month
+{
+	int numberOfDays;
+	char name[3];
+};
+
+You can access the elements of the array member like this:
+
+aMonth.name[0] = 'J';
+aMonth.name[1] = 'a';
+
+And you can initialize an structure containing arrays using the following construct:
+
+struct month aMonth = {31, {'J', 'a', 'n'}};
+
+And you can initialize an array containing structures which contain arrays like tthis:
+
+struct month months[12];
+
+Which can be manipulated in the same fashion as described earlier.
+
+*** Structure variants
+
+There is a lot of flexibility to define structures. It is valid to declare variables of a particular structure type at the same time the structure is defined. This is done by including the variable names before the terminating semicolon of the structure definition. For example:
+
+struct date
+{
+	int month;
+	int day;
+	int year;
+} todaysDate, purchaseDate;
+
+You can also initialize the structure at the same time, for example:
+
+struct date
+{
+	int month;
+	int day;
+	int year;
+} todaysDate = {0, 0, 0};
+
+The structure name can be omitted if all the variables of a particular type of structure are declared when the structure is defined. For example:
+
+struct 
+{
+	int month;
+	int day;
+	int year;
+} dates[100];
+
+In this case, because you did not supply a name to the structure, the only way to define variables again is to explicitly define the structure again.
 
