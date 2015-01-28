@@ -91,17 +91,53 @@ Write a program that permits the user to type in two dates and then calculates t
 //{
 //    struct date a = {0, 0, 0}, b = {0, 0, 0};
 //
-//    printf("\nType the value of the first date (dd/mm/yyyy): ");
+//    printf("\nType the value of the first date ([d]d/[m]m/yyyy): ");
 //    scanf("%i/%i/%i", &a.day, &a.month, &a.year);
 //    printf("You entered: %i/%i/%i.\n", a.day, a.month, a.year);
-//    printf("\nType the value of the second date (dd/mm/yyyy): ");
+//    printf("\nType the value of the second date ([d]d/[m]m/yyyy): ");
 //    scanf("%i/%i/%i", &b.day, &b.month, &b.year);
 //    printf("You entered: %i/%i/%i.\n", b.day, b.month, b.year);
 //
 //    printf("\nThe days between the dates entered by the user is: %i.\n", calculateDiffDays(a, b));
 //
-//    return 0;
+//        return 0;
 //}
 //
 
+/*********************************************************
+    Exercise 3
+    Write a function elapsed_time that takes as its arguments two time structures and returns a time structure that represents the elapsed time (in hours, minutes, and seconds) between the two times. So the call
 
+        elapsed_time (time1, time2)
+
+    where time1 represents 3:45:15 and time2 represents 9:44:03, should return a time structure that represents 5 hours, 58 minutes, and 48 seconds. Be careful with times that cross midnight.
+*********************************************************/
+
+#include <stdio.h>
+
+struct time
+{
+    int hour;
+    int minute;
+    int second;
+};
+
+struct time elapsedTime (struct time firstTime, struct time secondTime)
+{
+    struct time elapsedTime;
+
+
+
+    return elapsedTime;
+}
+
+int main ()
+{
+    struct time a = {3, 45, 15}, b = {9, 44, 3}, c = {0, 0, 0};
+
+
+
+    printf("The elapsed time is %i hour/s, %i minute/s and %i second/s.\n", c.hour, c.minute, c.second);
+
+    return 0;
+}
