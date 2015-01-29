@@ -1,0 +1,249 @@
+*** Lesson 8 - Working with structures
+
+The C language proves a tool for grouping elements together, which are structures. This chapter includes several key concepts about structures, including:
+
+	- Defining structures
+	- Passing structures to functions
+	- Arrays of structures
+	- Structures of arrays
+	
+*** The basics of structures
+
+The syntax to define a structure is as follows:
+
+struct <structure_name>
+{
+	<type_element_1> name_element_1;
+	<type_element_2> name_element_2;
+	...
+};
+
+Declaring an structure follows the same fashion as variables and can be done with the following construct:
+
+struct <structure_name> <instance_name>;
+
+Declaring an structure means that it will reserve memory for all the elements inside that structure, just like single variables's declaration reserves memory for that specific variable.
+
+In order to access specific elements of the structure, you use a period and the name of the element:
+
+<instance_name>.<element_name>;
+
+Then you can manipulate or change that specific element.
+
+Structures behave much like variables, for example an structure defined within a function is a local automatic structure, while an structure defined outside a function is a global structure.
+
+A common example of the above is as follows:
+
+struct date
+{
+	int month;
+	int day;
+	int year;
+};
+
+And the declaration:
+
+struct date today;
+
+The following statements:
+
+today.mongth = 9;
+today.day = 25;
+today.year = 2015;
+
+Can be conceptualized using the following graph:
+
+IMG1.PNG
+
+*** Using structures in expressions
+
+Structure members follow the same rules as ordinary variables do in the C language, you access specific members using the period character as mentioned earlier. The following are examples of expressions:
+
+today.day != 10;
+today.month >= 12;
+today.month == today.day;
+
+*** Functions and structures
+
+The local and global scope of variables applies to functions aswell, you can pass structures to functions just like variables, and you can set the return value of a function to be an structure, for example:
+
+struct date numberOfDays (struct date d)
+{
+	...
+	d.day = 20;
+	d.month = 40;
+	...
+	return d;
+}
+
+int main () 
+{
+	struct date a, b;
+	...
+	a = numberOfDays(b);
+	...
+}
+
+As with ordinary variables, and unlike arrays, any changes made by the function to the values contained in the argument structure have no effect on the original structure. They affect only the copy of the structure that is created when the function is called.
+
+*** Initializing structures
+
+Initializing structures is similar to initializing arrays, enclosing the members inside curly braces and separating each element by commas. For example:
+
+struct date today = {7, 2, 2015};
+
+Initializes the structure to day seven of month two of year 2015. As with other variables, if the structure is a local automatic variable, it is initialize each time the function is entered. If the structure variable is made static, it is only initialized at the start of the program execution. In either case, the values listed inside the curly braces must be constant expressions.
+
+It is also possible to omit certain values during initialization, for example:
+
+struct date today = {7, 2};
+
+In this case the member year is not initialized, and unlike arrays, it is not initialized to zero, the default initial value is undefined.
+
+You can also initialize the members of an structure with the following syntax:
+
+.member = value;
+
+The main advantage is that it allows you to initialize each member in no specific order, for example:
+
+struct date today = {.month = 12, .day = 10};
+
+In this case, the member year is not initialized and its value is undefined.
+
+*** Compound literals
+
+You can assign one or more values to a structure in a single statement using what is known as compound literals. Assuming that today is a struct date variable, you can perform an assignment with a compound literal like this:
+
+today = (struct date) {9, 25, 2015);
+
+You can also specify the values using the .member notation like this:
+
+today = (struct date) {.month = 9, .day = 25, .year = 2015};
+
+Compound literals can appear anywhere in the program, they are not just declaration statements. An impractical use of compound literals could be the following:
+
+nextDay = dateUpdate ( (struct date) {1, 2, 3} );
+
+*** Arrays of structures
+
+This concept is very powerful and important in C. Arrays can contain simple data types and it is also perfectly valid for them to contain structures, for example:
+
+struct date days[10];
+
+The expression above defines the array days which contains ten elements, and each element is defined to be an struct date.
+
+To access the elements of these structures you do it as follows:
+
+days[4].day = 1;
+date[4].month = 2;
+
+Similarly, to pass individual elements as arguments you do it the same way as arrays which contain simple variables.
+
+The initialization of arrays of structures is similar to the initialization of multidimensional arrays. The following example:
+
+struct date a[5] = {{12, 0, 0}, {12, 30, 0}, {13, 15, 0}};
+
+Is equal to the following example, however the inner braces, that are not necessary, do increase readability.
+
+struct date a[5] = { 12, 0, 0, 12, 30, 0, 13, 15, 0 };
+
+Other possible ways to initialize the arrays of structures are the following, which are self-explanatory.
+
+struct date a[5] = {[2] = {12, 0, 0}};
+struct date a[5] = { [1].day = 12, [1].hour = 30 };
+
+*** Structures containing structures
+
+It's possible to include structures inside structures, and the following statements are an example of this:
+
+struct dateAndTime
+{
+	struct date	sdate;
+	struct time stime;
+};
+
+The definitions of date and time must appear before the definition of the structure dateAndTime for the compiler to work properly.  
+
+You can declare variables of type struct dateAndTime like:
+
+struct dateAndTime  event;
+
+Using a period, you can access the other structures inside this structure:
+
+event.sdate;
+
+And using another period, you can access the members of the date and time structures:
+
+event.sdate.day;
+
+You can initialize the dateAndTime structure in the following manner:
+
+struct dateAndTime event = {{2, 1, 2015}, {3, 30, 0}};
+
+You can also use .member names in the initialization.
+
+It's also possible to declare arrays of structures that contain structures, for example:
+
+struct dateAndTime events[100];
+
+You can access the structures inside the structure and their members using subindexes and periods, for example:
+
+events[0].stime.hour = 12;
+events[0].sdate.day = 10;
+
+*** Structures containing arrays
+
+Structures can contain arrays as members. For example:
+
+struct month
+{
+	int numberOfDays;
+	char name[3];
+};
+
+You can access the elements of the array member like this:
+
+aMonth.name[0] = 'J';
+aMonth.name[1] = 'a';
+
+And you can initialize an structure containing arrays using the following construct:
+
+struct month aMonth = {31, {'J', 'a', 'n'}};
+
+And you can initialize an array containing structures which contain arrays like tthis:
+
+struct month months[12];
+
+Which can be manipulated in the same fashion as described earlier.
+
+*** Structure variants
+
+There is a lot of flexibility to define structures. It is valid to declare variables of a particular structure type at the same time the structure is defined. This is done by including the variable names before the terminating semicolon of the structure definition. For example:
+
+struct date
+{
+	int month;
+	int day;
+	int year;
+} todaysDate, purchaseDate;
+
+You can also initialize the structure at the same time, for example:
+
+struct date
+{
+	int month;
+	int day;
+	int year;
+} todaysDate = {0, 0, 0};
+
+The structure name can be omitted if all the variables of a particular type of structure are declared when the structure is defined. For example:
+
+struct 
+{
+	int month;
+	int day;
+	int year;
+} dates[100];
+
+In this case, because you did not supply a name to the structure, the only way to define variables again is to explicitly define the structure again.
+
