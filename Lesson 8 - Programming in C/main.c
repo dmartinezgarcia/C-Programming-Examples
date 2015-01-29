@@ -241,3 +241,210 @@ Write a program that permits the user to type in two dates and then calculates t
         Write a function called clockKeeper() that takes as its argument a dateAndTime structure as defined in this chapter. The function should call the timeUpdate() function, and if the time reaches midnight, the function should call the dateUpdate function to switch over to the next day. Have the function return the updated dateAndTime structure.
 *********************************************************/
 
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//struct date
+//{
+//    int day;
+//    int month;
+//    int year;
+//};
+//
+//struct time
+//{
+//    int seconds;
+//    int minutes;
+//    int hour;
+//};
+//
+//struct timeAndDate
+//{
+//    struct date Date;
+//    struct time Time;
+//};
+//
+//struct time  timeUpdate (struct time  now)
+//{
+//    ++now.seconds;
+//
+//    if ( now.seconds == 60 )        // next minute
+//    {
+//        now.seconds = 0;
+//        ++now.minutes;
+//
+//        if ( now.minutes == 60 )    // next hour
+//        {
+//            now.minutes = 0;
+//            ++now.hour;
+//
+//            if ( now.hour == 24 ) // midnight
+//                now.hour = 0;
+//        }
+//    }
+//    return now;
+//}
+//
+//bool  isLeapYear (struct date  d)
+//{
+//    bool  leapYearFlag;
+//
+//    if ( (d.year % 4 == 0  &&  d.year % 100 != 0)  ||
+//            d.year % 400 == 0 )
+//        leapYearFlag = true;   // It's a leap year
+//    else
+//        leapYearFlag = false;  // Not a leap year
+//
+//    return leapYearFlag;
+//}
+//
+//int  numberOfDays  (struct date  d)
+//{
+//    int  days;
+//    bool isLeapYear (struct date  d);
+//    const int  daysPerMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//
+//    if ( isLeapYear (d)  &&  d.month == 2 )
+//        days = 29;
+//    else
+//        days = daysPerMonth[d.month - 1];
+//
+//    return days;
+//}
+//
+//struct date  dateUpdate (struct date  today)
+//{
+//    struct date  tomorrow;
+//    int  numberOfDays (struct date  d);
+//
+//    if ( today.day != numberOfDays (today) )
+//    {
+//        tomorrow.day = today.day + 1;
+//        tomorrow.month = today.month;
+//        tomorrow.year = today.year;
+//    }
+//    else if ( today.month == 12 )      // end of year
+//    {
+//        tomorrow.day = 1;
+//        tomorrow.month = 1;
+//        tomorrow.year = today.year + 1;
+//    }
+//    else                               // end of month
+//    {
+//        tomorrow.day = 1;
+//        tomorrow.month = today.month + 1;
+//        tomorrow.year = today.year;
+//    }
+//
+//    return tomorrow;
+//}
+//
+//struct timeAndDate clockKeeper (struct timeAndDate td)
+//{
+//    if ((td.Time.hour == 23) && (td.Time.minutes == 59) && (td.Time.seconds == 59))
+//        td.Date = dateUpdate(td.Date);
+//
+//    td.Time = timeUpdate(td.Time);
+//
+//    return td;
+//}
+//
+//int main ()
+//{
+//    struct time tdtime = {.seconds = 59, .minutes = 59, .hour = 23};
+//    struct date tddate = {.day = 31, .month = 12, .year = 2014};
+//    struct timeAndDate td = {.Time = tdtime, .Date = tddate};
+//
+//    printf("Date before: %.2i/%.2i/%.2i || Time Before: %.2i:%.2i:%.2i.\n", td.Date.day, td.Date.month, td.Date.year, td.Time.hour, td.Time.minutes, td.Time.seconds);
+//
+//    td = clockKeeper(td);
+//
+//    printf("Date after: %.2i/%.2i/%.2i || Time after: %.2i:%.2i:%.2i.\n", td.Date.day, td.Date.month, td.Date.year, td.Time.hour, td.Time.minutes, td.Time.seconds);
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 6
+        Replace the dateUpdate() function from Program 8.4 with the modified one that uses compound literals as presented in the text. Run the program to verify its proper operation.
+*********************************************************/
+
+// Program to determine tomorrow's date
+
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//struct  date
+//{
+//    int  month;
+//    int  day;
+//    int  year;
+//};
+//
+//// Function to calculate tomorrow's date
+//
+//struct date  dateUpdate (struct date  today)
+//{
+//    struct date  tomorrow;
+//    int  numberOfDays (struct date  d);
+//
+//    if ( today.day != numberOfDays (today) )
+//    {
+//        tomorrow = (struct date) {.day = today.day + 1, .month = today.month, .year = today.year};
+//    }
+//    else if ( today.month == 12 )      // end of year
+//    {
+//        tomorrow = (struct date) {.day = 1, .month = 1, .year = today.year + 1};
+//    }
+//    else                               // end of month
+//    {
+//        tomorrow = (struct date) {.day = 1, .month = today.month + 1, .year = today.year};
+//    }
+//
+//    return tomorrow;
+//}
+//
+//// Function to find the number of days in a month
+//
+//int  numberOfDays  (struct date  d)
+//{
+//    int  days;
+//    bool isLeapYear (struct date  d);
+//    const int  daysPerMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//
+//    if ( isLeapYear (d)  &&  d.month == 2 )
+//        days = 29;
+//    else
+//        days = daysPerMonth[d.month - 1];
+//
+//    return days;
+//}
+//
+//// Function to determine if it's a leap year
+//
+//bool  isLeapYear (struct date  d)
+//{
+//    bool  leapYearFlag;
+//
+//    if ( (d.year % 4 == 0  &&  d.year % 100 != 0)  ||
+//            d.year % 400 == 0 )
+//        leapYearFlag = true;   // It's a leap year
+//    else
+//        leapYearFlag = false;  // Not a leap year
+//
+//    return leapYearFlag;
+//}
+//
+//int main (void)
+//{
+//    struct date  dateUpdate (struct date  today);
+//    struct date  thisDay, nextDay;
+//
+//    printf ("Enter today's date (mm dd yyyy): ");
+//    scanf ("%i%i%i", &thisDay.month, &thisDay.day, &thisDay.year);
+//
+//    nextDay = dateUpdate (thisDay);
+//    printf ("Tomorrow's date is %i/%i/%.2i.\n",nextDay.month, nextDay.day, nextDay.year % 100);
+//
+//    return 0;
+//}
