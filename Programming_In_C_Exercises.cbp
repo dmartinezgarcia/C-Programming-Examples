@@ -31,7 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="Lesson 8 - Programming in C/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
