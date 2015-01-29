@@ -73,8 +73,6 @@ Write a program that permits the user to type in two dates and then calculates t
 //
 //    N = ( 1461 * f / 4 ) + ( 153 * g / 5) + d.day;
 //
-//    printf("%i\n", N);
-//
 //    return N;
 //}
 //
@@ -113,31 +111,133 @@ Write a program that permits the user to type in two dates and then calculates t
     where time1 represents 3:45:15 and time2 represents 9:44:03, should return a time structure that represents 5 hours, 58 minutes, and 48 seconds. Be careful with times that cross midnight.
 *********************************************************/
 
-#include <stdio.h>
+//#include <stdio.h>
+//
+//struct time
+//{
+//    int hour;
+//    int minute;
+//    int second;
+//};
+//
+//struct time elapsedTime (struct time firstTime, struct time secondTime)
+//{
+//    signed short int seconds = 0, minutes = 0, hours = 0;
+//    struct time elapsedTime;
+//
+//    if ((seconds = secondTime.second - firstTime.second) < 0)
+//        seconds += 60, minutes -= 1;
+//
+//    if ((minutes += secondTime.minute - firstTime.minute) < 0)
+//        minutes += 60, hours -= 1;
+//
+//    if ((hours += secondTime.hour - firstTime.hour) < 0)
+//        hours += 24;
+//
+//    elapsedTime = (struct time) {hours, minutes, seconds};
+//
+//    return elapsedTime;
+//}
+//
+//int main ()
+//{
+//    struct time a = {12, 44, 03}, b = {12, 21, 33}, c = {0, 0, 0};
+//
+//    c = elapsedTime(a, b);
+//
+//    printf("The elapsed time is: %.2i:%.2i:%.2i.\n", c.hour, c.minute, c.second);
+//
+//    return 0;
+//}
 
-struct time
-{
-    int hour;
-    int minute;
-    int second;
-};
+/*********************************************************
+    Exercise 4
+        If you take the value of N as computed in exercise 2, subtract 621,049 from it, and then take that result modulo 7, you get a number from 0 to 6 that represents the day of the week (Sunday through Saturday, respectively) on which the particular day falls. For example, the value of N computed for August 8, 2004, is 732,239 as derived previously. 732,239 − 621,049 gives 111,190, and 111,190 % 7 gives 2, indicating that this date falls on a Tuesday.
 
-struct time elapsedTime (struct time firstTime, struct time secondTime)
-{
-    struct time elapsedTime;
+        Use the functions developed in the previous exercise to develop a program that displays the day of the week on which a particular date falls. Make certain that the program displays the day of the week in English (such as “Monday”).
+*********************************************************/
 
+// The example above is wrong, it should be 198 days.
 
+//#include <stdio.h>
+//
+//struct date
+//{
+//    int day;
+//    int month;
+//    int year;
+//    char dayName[10];
+//};
+//
+//int calculateN (struct date d)
+//{
+//    int N;
+//    int f, g;
+//
+//    if (d.month <= 2)
+//    {
+//        f = d.year - 1;
+//        g = d.month + 13;
+//    }
+//    else
+//    {
+//        f = d.year;
+//        g = d.month + 1;
+//    }
+//
+//    N = ( 1461 * f / 4 ) + ( 153 * g / 5) + d.day;
+//
+//    return N;
+//}
+//
+//int calculateDiffDays (struct date firstDate, struct date secondDate)
+//{
+//    int Days;
+//
+//    Days = (calculateN(firstDate) - calculateN(secondDate));
+//
+//    return Days;
+//}
+//
+//// Can be improved by using features explained in later lessons.
+//struct date createDate (int day, int month, int year)
+//{
+//    static const int constant = 621049;
+//    static const char week[7][10] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+//    struct date r = {day, month, year, {0, 0}};
+//    int dayIndex = 0, i = 0;
+//
+//    dayIndex = (calculateN(r) - constant) % 7;
+//
+//    printf("\n%i\n", calculateN(r));
+//
+//    for (i = 0; week[dayIndex][i]; i++)
+//        r.dayName[i] = week[dayIndex][i];
+//
+//    return r;
+//}
+//
+//int main ()
+//{
+//    struct date a, b;
+//    int day, month, year;
+//
+//    printf("\nType the value of the first date ([d]d/[m]m/yyyy): ");
+//    scanf("%i/%i/%i", &day, &month, &year);
+//    a = createDate(day, month, year);
+//    printf("You entered: %i/%i/%i, which falls on %s.\n", a.day, a.month, a.year, a.dayName);
+//    printf("\nType the value of the second date ([d]d/[m]m/yyyy): ");
+//    scanf("%i/%i/%i", &day, &month, &year);
+//    b = createDate(day, month, year);
+//    printf("You entered: %i/%i/%i, which falls on %s.\n", b.day, b.month, b.year, b.dayName);
+//
+//    printf("The days between the dates entered by the user is: %i.\n", calculateDiffDays(a, b));
+//
+//    return 0;
+//}
 
-    return elapsedTime;
-}
+/*********************************************************
+    Exercise 5
+        Write a function called clockKeeper() that takes as its argument a dateAndTime structure as defined in this chapter. The function should call the timeUpdate() function, and if the time reaches midnight, the function should call the dateUpdate function to switch over to the next day. Have the function return the updated dateAndTime structure.
+*********************************************************/
 
-int main ()
-{
-    struct time a = {3, 45, 15}, b = {9, 44, 3}, c = {0, 0, 0};
-
-
-
-    printf("The elapsed time is %i hour/s, %i minute/s and %i second/s.\n", c.hour, c.minute, c.second);
-
-    return 0;
-}
