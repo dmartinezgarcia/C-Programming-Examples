@@ -118,5 +118,54 @@ char buffer[100] = "";
 
 *** Escape characters
 
-Characters can be combined with the backslash character to perform special functions, these vvarious backslash characters, often referred as escape characters, are summarized in the following image:
+Characters can be combined with the backslash character to perform special functions, these various backslash characters, often referred as escape characters, are summarized in the following image:
 
+IMG1.PNG
+
+*** More on Constant strings
+
+If you place a backslash character at the very end of the line and follow it inmediately by a carriage return, it tells the C compiler to ignore the end of the line. You can use the line continuation character to write a long constant character string over multiple lines. For example:
+
+char letters[] = {"abcdef\
+abcdef}";
+
+Another way to break up long character strings is to divide them into two or more adjacent strings. Adjacent strings are constant strings separated by zero or more spaces, tabs or newlines. The compiler automatically concatenates adjacent strings together. Therefore, writing the strings:
+
+"one" "two" "three"
+
+Is sintactically equivalent to writing the single string:
+
+"onetwothree"
+		
+*** Character strings, structures and arrays
+
+You can define character strings inside structures to create powerful programming constructs, for example:
+
+struct word
+{
+	char word[15]
+	char definition[100]
+};
+
+*** Character operations
+
+Character variables and constants are frequently used in relational and arithmetic expressions, to properly use the characters in such situations, it is necessary for you to understand how they are handled by the C compiler. Whenever a character constant or variable is used in an expression in C, it is automatically converted to and subsequently treated as an integer value. For example:
+
+c >= 'a' && c <= 'z'
+
+Could be used to determine if the character variable c contained a lowercase letter. The precedent expression compares the value of c to the numerical representation of 'a' and 'z', their ASCII values, 97 and 122 respectively. So the following expression is equivalent to the one above:
+
+c >= 97 && c <= 122
+
+The following statement prints the the numerical value of the character 'a', its ASCII value:
+
+char a = 'a';
+printf("%i\n", a);
+
+While the following expression prints the actual character:
+
+printf("%c\n", a);
+
+*** The Standard C library
+
+There are many functions in the standard C library to work with strings, for example strcat, strcmp, strcpy, atoi, isupper, islower, isalpha, isdigit...
