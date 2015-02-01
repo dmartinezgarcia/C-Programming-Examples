@@ -278,3 +278,446 @@ with text as originally defined in the previous exercise, results in the charact
 
         has the effect of removing the first asterisk inside the text array because the replacement string is the null string.
 *********************************************************/
+
+//#include <stdio.h>
+
+//void insertString (char source[], char text[], int index)
+//{
+//    int a = 0, b = 0, i = 0;
+//
+//    for (a = 0; text[a] != '\0'; a++);
+//    for (b = 0; source[b] != '\0'; b++);
+//
+//    for (; b >= index; b--)
+//        source[b + a] = source[b];
+//
+//    for (i = 0; i < a; i++)
+//        source[index + i] = text[i];
+//}
+//
+//void removeString (char source[], int index, int count)
+//{
+//    int a = 0;
+//
+//    for (; source[a] != '\0'; a++);
+//
+//    if ((index + count) > a)
+//        source[index] = '\0';
+//    else
+//    {
+//        for (; source[index + count - 1] != '\0'; index++)
+//            source[index] = source[index + count];
+//    }
+//}
+//
+//int findString (const char source[], const char search[])
+//{
+//    int i = 0, a = 0;
+//
+//    while (source[a] != '\0')
+//    {
+//        if (source[a] == search[i])
+//        {
+//            if (search[i + 1] == '\0')
+//                return (a - i);
+//            else
+//                i++;
+//        }
+//        else
+//        {
+//            i = 0;
+//        }
+//        a++;
+//    }
+//
+//    return (-1);
+//}
+//
+//void replaceString(char source[], char s1[], char s2[])
+//{
+//    int i, a;
+//
+//    if ( ( i = findString(source, s1) ) != -1)
+//    {
+//        for(a = 0; s1[a] != '\0'; a++);
+//
+//        removeString(source, i, a);
+//        insertString(source, s2, i);
+//    }
+//}
+//
+//int main (void)
+//{
+//    char source[] = "123456789";
+//
+//    printf("Original string: %s.\n", source);
+//    replaceString(source, "45678", "fivesixseveneight");
+//    printf("Result string: %s.\n", source);
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 9
+        You can extend even further the usefulness of the replaceString() function from the preceding exercise if you have it return a value that indicates whether the replacement succeeded, which means that the string to be replaced was found inside the source string. So, if the function returns true if the replacement succeeds and false if it does not, the loop
+
+            do
+                stillFound = replaceString (text, " ", "");
+            while  ( stillFound );
+
+could be used to remove all blank spaces from text, for example.
+Incorporate this change into the replaceString() function and try it with various character strings to ensure that it works properly.
+*********************************************************/
+//
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//void insertString (char source[], char text[], int index)
+//{
+//    int a = 0, b = 0, i = 0;
+//
+//    for (a = 0; text[a] != '\0'; a++);
+//    for (b = 0; source[b] != '\0'; b++);
+//
+//    for (; b >= index; b--)
+//        source[b + a] = source[b];
+//
+//    for (i = 0; i < a; i++)
+//        source[index + i] = text[i];
+//}
+//
+//void removeString (char source[], int index, int count)
+//{
+//    int a = 0;
+//
+//    for (; source[a] != '\0'; a++);
+//
+//    if ((index + count) > a)
+//        source[index] = '\0';
+//    else
+//    {
+//        for (; source[index + count - 1] != '\0'; index++)
+//            source[index] = source[index + count];
+//    }
+//}
+//
+//int findString (const char source[], const char search[])
+//{
+//    int i = 0, a = 0;
+//
+//    while (source[a] != '\0')
+//    {
+//        if (source[a] == search[i])
+//        {
+//            if (search[i + 1] == '\0')
+//                return (a - i);
+//            else
+//                i++;
+//        }
+//        else
+//        {
+//            i = 0;
+//        }
+//        a++;
+//    }
+//
+//    return (-1);
+//}
+//
+//bool replaceString(char source[], char s1[], char s2[])
+//{
+//    int i, a;
+//
+//    if ( ( i = findString(source, s1) ) != -1)
+//    {
+//        for(a = 0; s1[a] != '\0'; a++);
+//
+//        removeString(source, i, a);
+//        insertString(source, s2, i);
+//        return true;
+//    } else
+//        return false;
+//}
+//
+//int main (void)
+//{
+//    char source[] = " 1        2     3    4    5   6 7  8   9   ";
+//
+//    printf("Original string: %s.\n", source);
+//    while(replaceString(source, " ", ""));
+//    printf("Result string: %s.\n", source);
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 10
+        Write a function called dictionarySort() that sorts a dictionary, as defined in Programs 9.9 and 9.10, into alphabetical order.
+*********************************************************/
+
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//struct entry
+//{
+//    char word[15];
+//    // char definition[50]; // Not needed.
+//};
+//
+//struct dictionary
+//{
+//    struct entry entries[7];
+//};
+//
+//char toLowerCase(char c)
+//{
+//    if (c >= 'A' && c <= 'Z')
+//        c += 0x20;
+//    return c;
+//}
+//
+//int compareStrings(char s1[], char s2[])
+//{
+//    int i = 0;
+//
+//    do {
+//        if (toLowerCase(s1[i]) > toLowerCase(s2[i]))
+//            return 1;
+//        else if (toLowerCase(s1[i]) < toLowerCase(s2[i]))
+//            return -1;
+//        i++;
+//    } while (s1[i] != '\0' || s2[i] != '\0');
+//
+//    return 0;
+//}
+//
+//struct dictionary swapEntries(struct dictionary dic, int index1, int index2)
+//{
+//    struct entry temp;
+//    int i;
+//
+//    for (i = 0; dic.entries[index1].word[i] != '\0'; i++)
+//        temp.word[i] = dic.entries[index1].word[i];
+//    temp.word[i] = '\0';
+//
+//    for (i = 0; dic.entries[index2].word[i] != '\0'; i++)
+//        dic.entries[index1].word[i] = dic.entries[index2].word[i];
+//    dic.entries[index1].word[i] = '\0';
+//
+//    for (i = 0; temp.word[i] != '\0'; i++)
+//        dic.entries[index2].word[i] = temp.word[i];
+//    dic.entries[index2].word[i] = '\0';
+//
+//    return dic;
+//}
+//
+//struct dictionary sortDictionary (struct dictionary dic, int numEntries)
+//{
+//    // Bubble sort method.
+//    bool swapped = false;
+//    int i;
+//
+//    do {
+//        swapped = false;
+//        for (i = 1; i <= (numEntries - 1); i++)
+//        {
+//            if (compareStrings(dic.entries[i-1].word, dic.entries[i].word) == 1)
+//            {
+//                dic = swapEntries(dic, i-1, i);
+//                swapped = true;
+//            }
+//        }
+//    } while (swapped);
+//
+//    return dic;
+//}
+//
+//int main (void)
+//{
+//    struct dictionary dicc = {.entries[0].word = "heap",
+//                              .entries[1].word = "stack",
+//                              .entries[2].word = "queue",
+//                              .entries[3].word = "object",
+//                              .entries[4].word = "class",
+//                              .entries[5].word = "program",
+//                              .entries[6].word = "project"};
+//    int i;
+//
+//    printf("\n\nUnsorted words: \n\n");
+//    for (i = 0; i <= 6; i++)
+//        printf("%s\n", dicc.entries[i].word);
+//
+//    dicc = sortDictionary(dicc, 7);
+//
+//    printf("\n\nSorted words: \n\n");
+//    for (i = 0; i <= 6; i++)
+//        printf("%s\n", dicc.entries[i].word);
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 11
+        Extend the strToInt() function from Program 9.11 so that if the first character of the string is a minus sign, the value that follows is taken as a negative number.
+*********************************************************/
+
+//#include <stdio.h>
+//
+//int  strToInt (const char  string[])
+//{
+//    int  i, intValue, result = 0;
+//
+//    for  (i = (string[0] == '-') ? (1) : (0); string[i] >= '0' && string[i] <= '9'; ++i )
+//    {
+//        intValue = string[i] - '0';
+//        result = result * 10 + intValue;
+//    }
+//
+//    result = (string[0] == '-') ? (-result) : (result);
+//
+//    return result;
+//}
+//
+//int main (void)
+//{
+//    int  strToInt (const char  string[]);
+//
+//    printf ("%i\n", strToInt("-245"));
+//    printf ("%i\n", strToInt("-100") + 25);
+//    printf ("%i\n", strToInt("13x5"));
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 12
+        Write a function called strToFloat() that converts a character string into a floating-point value. Have the function accept an optional leading minus sign. So, the call
+
+            strToFloat ("-867.6921");
+
+        should return the value −867.6921.
+*********************************************************/
+
+//#include <stdio.h>
+//#include <stdbool.h>
+//#include <math.h>
+//
+//float strToFloat (const char string[])
+//{
+//    bool decFound = false;
+//    bool minusFound = false;
+//    float result = 0.0F, decimal = 0.0F;
+//    int i = 0, a = 0;
+//
+//    for (i = 0; (string[i] == '-') || (string[i] == '.') || (string[i] == ',') || (string[i] >= '0' && string[i] <= '9'); i++)
+//    {
+//        if ((string[i] == '.') || (string[i] == ','))
+//            {decFound = true; a = i; continue;}
+//        if (string[i] == '-')
+//            {minusFound = true; continue;}
+//
+//        if (decFound)
+//            decimal = decimal + (string[i] - '0') / pow(10, i - a);
+//        else
+//            result = result * 10 + (string[i] - '0');
+//    }
+//
+//    result += decimal;
+//    result = minusFound ? -result : result;
+//
+//    return (result);
+//}
+//
+//int main (void)
+//{
+//
+//    printf("Number %s is %.4f.\n", "1827.4214", strToFloat("1827.4214"));
+//    printf("Number %s is %.4f.\n", "3812,0024", strToFloat("3812,0024"));
+//    printf("Number %s is %.4f.\n", "0.4214", strToFloat("0.4214"));
+//    printf("Number %s is %.4f.\n", "-2783.3911", strToFloat("-2783.3911"));
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 13
+        If c is a lowercase character, the expression
+
+            c – 'a' + 'A'
+
+        produces the uppercase equivalent of c, assuming an ASCII character set.
+        Write a function called uppercase() that converts all lowercase characters in a string into their uppercase equivalents.
+*********************************************************/
+
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//char toUpperCase (char c)
+//{
+//    if (c >= 'a' && c <= 'z')
+//        c = c - 'a' + 'A';
+//    return c;
+//}
+//
+//void stringToUpperCase (char string[])
+//{
+//    int i = 0;
+//
+//    while (string[i] != '\0') {
+//        string[i] = toUpperCase(string[i]);
+//        i++;
+//    }
+//}
+//
+//int main (void)
+//{
+//    char source[] = "this is a lowercase sentence";
+//
+//    printf("Before the call: %s.\n", source);
+//    stringToUpperCase(source);
+//    printf("After the call: %s.\n", source);
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 14
+        Write a function called intToStr() that converts an integer value into a character string. Be certain the function handles negative integers properly.
+*********************************************************/
+
+//#include <stdio.h>
+//
+//void intToStr (int number, char str[])
+//{
+//    int exp = 1, i = 0;
+//    char num = '0';
+//
+//    if (number < 0)
+//    {
+//        str[i++] = '-';
+//        number = -number;
+//    }
+//
+//    while ((exp * 10) < number)
+//        exp = exp * 10;
+//
+//    do {
+//        num = (number / exp) + '0';
+//        str[i++] = num;
+//        number = number % exp;
+//        exp = exp / 10;
+//    } while (exp > 0);
+//
+//    str[i] = '\0';
+//}
+//
+//int main (void)
+//{
+//    char str[20] = {0};
+//    int a = -32381;
+//
+//    intToStr(a, str);
+//    printf("Number %i is \"%s\".\n", a, str);
+//
+//    return 0;
+//}
