@@ -175,8 +175,8 @@ should just place the string “words” inside the result array, even though 20
 //
 //int main (void)
 //{
-//    const char source[] = "A chatterbox";
-//    const char search[] = "hat";
+//    const char source[] = "0123456789";
+//    const char search[] = "0";
 //
 //    printf("The string \"%s\" was found in \"%s\" at position %i.\n", search, source, findString(source, search));
 //
@@ -192,20 +192,21 @@ should just place the string “words” inside the result array, even though 20
 has the effect of removing the characters “wrong” (the word “wrong” plus the space that follows) from the array text. The resulting string inside text is then "the son".
 *********************************************************/
 
-// This function assumes the parameters index and count are within limits.
-
 //#include <stdio.h>
 //
 //void removeString (char source[], int index, int count)
 //{
 //    int a = 0;
 //
-//    for (a = count; a > 0 && source[index + count] != '\0'; a--, index++)
-//        source[index] = source[index + count];
+//    for (; source[a] != '\0'; a++);
 //
-//    source[index] = '\0';
-//
-//    return;
+//    if ((index + count) > a)
+//        source[index] = '\0';
+//    else
+//    {
+//        for (; source[index + count - 1] != '\0'; index++)
+//            source[index] = source[index + count];
+//    }
 //}
 //
 //int main (void)
@@ -214,9 +215,66 @@ has the effect of removing the characters “wrong” (the word “wrong” plus
 //
 //    printf("Original string: %s.\n", source);
 //
-//    removeString(source, 4, 6);
+//    removeString(source, 1, 10);
 //
 //    printf("Result string: %s.\n", source);
 //
 //    return 0;
 //}
+
+/*********************************************************
+    Exercise 7
+        Write a function called insertString() to insert one character string into another string. The arguments to the function should consist of the source string, the string to be inserted, and the position in the source string where the string is to be inserted. So, the call
+
+        insertString (text, "per", 10);
+
+with text as originally defined in the previous exercise, results in the character string "per" being inserted inside text, beginning at text[10]. Therefore, the character string "the wrong person" is stored inside the text array after the function returned.
+*********************************************************/
+
+//#include <stdio.h>
+//
+//void insertString (char source[], char text[], int index)
+//{
+//    int a = 0, b = 0, i = 0;
+//
+//    for (a = 0; text[a] != '\0'; a++);
+//    for (b = 0; source[b] != '\0'; b++);
+//
+//    for (; b >= index; b--)
+//        source[b + a] = source[b];
+//
+//    for (i = 0; i < a; i++)
+//        source[index + i] = text[i];
+//}
+//
+//int main (void)
+//{
+//    char source[] = "the wrong son";
+//
+//    printf("Original string: %s.\n", source);
+//
+//    insertString(source, "per", 10);
+//
+//    printf("Result string: %s.\n", source);
+//
+//    return 0;
+//}
+
+/*********************************************************
+    Exercise 8
+        Using the findString(), removeString(), and insertString() functions from preceding exercises, write a function called replaceString() that takes three character string arguments as follows
+
+            replaceString (source, s1, s2);
+
+        and that replaces s1 inside source with the character string s2. The function should call the findString() function to locate s1 inside source, then call the removeString() function to remove s1 from source, and finally call the insertString() function to insert s2 into source at the proper location.
+
+        So, the function call
+
+            replaceString (text, "1", "one");
+
+        replaces the first occurrence of the character string "1" inside the character string text, if it exists, with the string "one". Similarly, the function call
+
+            replaceString (text, "*", "");
+
+        has the effect of removing the first asterisk inside the text array because the replacement string is the null string.
+*********************************************************/
