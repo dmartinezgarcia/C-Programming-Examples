@@ -55,6 +55,9 @@
 		<Unit filename="Lesson 8 - Programming in C/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 9 - Character Strings/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Template/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
