@@ -1,0 +1,171 @@
+*** Lesson 9 Character strings
+
+Data manipulation is the single-most important function your programs will perform. The C language doesn't have a string data type like many other languages, but as you have seen a combination of the char data type and arrays can cover what you need:
+
+	* Understanding character arrays
+	* Employing variable-lengths character arrays
+	* Using escape characters
+	* Adding character arrays to structures
+	* Performing data operations on strings
+
+*** Revisiting the basics of strings
+
+The following is an example of an string, a line of text enclosed in double quotation marks:
+
+"Programming in C is fun.\n"
+
+It can contain any combination of letters, numbers or special characters.
+
+The difference between the string and the character type is that the latter can only contain a single character, and this character is enclosed within a pair of single quotation marks like these:
+
+char character = 'P';
+
+This said, the following is incorrect:
+
+char character = "P";
+
+It is important to remember the difference betweeen a char type and strings, particularly the single and double quotation marks.
+
+*** Arrays of characters
+
+An array of characters can contain a string, for example:
+
+char word[] = {'H', 'e', 'y', '!'};
+
+There is also a type called wchar_t used for wide characters, this type is used to represent single characters from an international character set.
+
+*** Variable length character strings
+
+The idea of placing a special character at the end of ever string is quite useful, as the function by itself can determine when it has reached the end of a character string after it encounters the special character and it eliminates the need to specify te number of characters that are contained inside an string.
+
+In the C language he special character that is used to signal the end of a string is known as the null character and is written as '\0'. So the statement:
+
+char word[] = {'H', 'o', 'l', 'a', '\0'};
+
+Defines a character array called word that contains five characters, the last of which is the null special character. The length of the string is four characters.
+
+*** Initializing and displaying character strings
+
+C provides nice features for dealing with character strings. The first feature involves the initialization of character arrays. C permits a character array to be initialized by simply specifying a constant character string, so for example the following examples are valid:
+
+char word[] = "Hello";
+char word[] = "Hello";
+
+In this case, the char word contains six characters, five from the length of the string and another one from the special character null. The statements above are equa to the following statement:
+
+char word[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+
+In case you decide to explicitley define the size of the array, make sure there is enough space for the null character, for example this statement is valid:
+
+char word[6] = "Hello";
+
+While this is not: there is not enough room for the null character so it's not put at the end of the word. The compiler won't complain about it, so it's important to avoid these situations.
+
+char word[5] = "Hello";
+
+Another useful feature is related to the display of character strings, the special format characters %s inside a printf format string can be used to display an array of characters that is terminated by the null character.
+
+printf("%s\n", word);
+
+*** Testing two character strings for equality
+
+You cannot directly test two strings to see if they are equal with a statement such as:
+
+	if (string1 == string2)
+		...
+		
+Because the equality operator can only be applied to simple variable types, such as floats, ints or chars. To determine if two strings are equal you must compare the strings character by character.
+
+*** Inputting character strings
+
+The scanf function can be used with the %s format to read an string of characters from a terminal up to a tab character, the end of the line or a blank space. So the statements:
+
+char string[81];
+scanf("%s", string);
+
+have the effect of reading in a character string typed in our terminal window and storing it inside the character array string.
+
+There are cases when a char array can overflow, the scanf function reads from the terminal a lot of characters. You can use field width specifiers to limit the ammounto of characters the scanf function will read when working strings, for example:
+
+char string[81]
+scanf("%80s", string);
+
+This way the function knows that it shouldn't read and store more than 80 characters in the string array, 81 wasn't used because you have to leave room for the special null character which signals the end of the string.
+
+
+*** Single-Character Input
+
+In order to read single characters for the terminal you can use the following functions:
+
+char a;
+scanf("%c", &a);
+a = getchar();
+
+Both statements are equally valid, and you should decide which one is better for your application.
+
+You can read single lines of text with the function gets, like this:
+
+char a[20];
+gets(a);
+
+*** The Null String
+
+A character string that constains no characters other than the null character has a special name in the C language, it's called the null string. This string only has the null character in it.
+
+In C, the null string is denoted with a double pair of quoation marks, one next to the other. For example:
+
+char buffer[100] = "";
+
+*** Escape characters
+
+Characters can be combined with the backslash character to perform special functions, these various backslash characters, often referred as escape characters, are summarized in the following image:
+
+IMG1.PNG
+
+*** More on Constant strings
+
+If you place a backslash character at the very end of the line and follow it inmediately by a carriage return, it tells the C compiler to ignore the end of the line. You can use the line continuation character to write a long constant character string over multiple lines. For example:
+
+char letters[] = {"abcdef\
+abcdef}";
+
+Another way to break up long character strings is to divide them into two or more adjacent strings. Adjacent strings are constant strings separated by zero or more spaces, tabs or newlines. The compiler automatically concatenates adjacent strings together. Therefore, writing the strings:
+
+"one" "two" "three"
+
+Is sintactically equivalent to writing the single string:
+
+"onetwothree"
+		
+*** Character strings, structures and arrays
+
+You can define character strings inside structures to create powerful programming constructs, for example:
+
+struct word
+{
+	char word[15]
+	char definition[100]
+};
+
+*** Character operations
+
+Character variables and constants are frequently used in relational and arithmetic expressions, to properly use the characters in such situations, it is necessary for you to understand how they are handled by the C compiler. Whenever a character constant or variable is used in an expression in C, it is automatically converted to and subsequently treated as an integer value. For example:
+
+c >= 'a' && c <= 'z'
+
+Could be used to determine if the character variable c contained a lowercase letter. The precedent expression compares the value of c to the numerical representation of 'a' and 'z', their ASCII values, 97 and 122 respectively. So the following expression is equivalent to the one above:
+
+c >= 97 && c <= 122
+
+The following statement prints the the numerical value of the character 'a', its ASCII value:
+
+char a = 'a';
+printf("%i\n", a);
+
+While the following expression prints the actual character:
+
+printf("%c\n", a);
+
+*** The Standard C library
+
+There are many functions in the standard C library to work with strings, for example strcat, strcmp, strcpy, atoi, isupper, islower, isalpha, isdigit...
