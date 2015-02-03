@@ -298,4 +298,76 @@ valuesPtr = &values[i]; // Equal to valuesPtr += 1; if valuesPtr previously poin
 
 The increment operator, ++, and decrement operator, --, are handy when dealing with pointers. Applying the former has the same effect as adding one to the pointer, while applying the decrement operator has the same effect as subtracting one from the pointer.
 
-It is perfectly valid to compare two pointer variables in C, this is particularly useful when comparing two pointers in the same array. For example you can test the pointer valuesPtr to see if it points past the end of an array containing 100 elements by comparing it to a pointer to the last element in the array. 
+You can compare two variables in C, this can be useful when comparing two pointers in the same array, you can test the current pointer to see if it points past the end of the array, for example:
+
+valuesPtr > &values[99]
+
+You can replace the preceding expression with its equivalent:
+
+valuesPtr > values + 99;
+
+*** A slight digression about program optimization
+
+Suppose the following expression:
+
+for (...; pointer <= array + n; ...)
+
+It's actually better to create something like this:
+
+int const arrayEnd = array + n;
+
+for (...; pointer <= arrayEnd; ...)
+
+The sole motivation for this is optimization. Each time through the for loop, the looping conditions are evaluated. By evaluating it once before the loop is entered, you save the time that would otherwise be spent reevaluating this expression each time through the loop. 
+
+Other issue involving optimization regarding pointers. In general, the process of indexing an array takes more time to execute than does the process of accessing the contents of a pointer. This is one of the main reasons why pointers are used to access the elements of an array, the code generated is generally more efficient. In code, what this means is that:
+
+*ptr;
+
+Is faster than :
+
+ptr[i];
+
+If access to the array is not generally sequential, pointers accomplish nothing, as far as this issue is concerned, because the expression:
+
+*(pointer + i);
+
+Takes as long to execute as:
+
+pointer[j];
+
+*** Is it an array or is it a pointer?
+
+To pass an array to a function you specify the name of the array, to produce a pointer to an array you need only specify the name of the array. It all comes down to the fact discussed previously, if "x" is an array of any type, the expression x[i] can always be equivalently expressed in C as *(x + i).
+
+Pointers and arrays are intimately related in C, this is why you can declare an array to be of type "array of ints" or to be of type "pointer to int". Either declaration works fine, if you are going to be using index numbers to reference elements of an array that is passed to a function, declare the corresponding formal parameter as an array. Similarly, if you are using the argument as a pointer to the array, declare it to be of type pointer.
+
+*** Pointers to character strings
+
+One of the most common applications of using a pointer to an array is as a pointer to a character string. The reasons are ones of notational convenience and efficiency.
+
+Using pointers, the following function:
+
+void copyString (char  *to, char  *from)
+{
+     for (  ;  *from != '\0';  ++from, ++to )
+          *to = *from;
+
+     *to = '\0';
+}
+
+Could be replaced by the following:
+
+void copyString (char  *to, char  *from)
+{
+     for (  ;  *from != '\0';  ++from, ++to )
+          *to = *from;
+		  
+     *to = '\0';
+}
+
+*** Constant Character Strings and Pointers
+
+The fact that the call:
+
+
