@@ -368,6 +368,60 @@ void copyString (char  *to, char  *from)
 
 *** Constant Character Strings and Pointers
 
-The fact that the call:
+Whenever a constant character string is used in C, it is a pointer to that character string that is produced. So the following statements are valid:
+
+char *textPtr;
+textPtr = "A character string";
+
+There is a distinction between character pointers and character arrays, as the type of assignment just shown is not valid with a character array. The only situation where this is allowed is when initializing the array, and in this case the individual characters are stored inside the positions of the array.
+
+A more clear example could be declaring an array of char pointers like this:
+
+char *days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+The array contains seven entries, each a pointer to a character string. So days[0] contains a pointer to the character string "Sunday". The following image helps conceptualize this idea:
+
+IMG9.PNG
+
+*** The increment and decrement operators revisited
+
+These operators have the effect of adding or substract 1 to the value of the variable x. If x is a pointer to an array, this has the effect of setting x to point to the next element of the array.
+
+Increment and decrement operators can be used as preincrement and predecrement respectively:
+
+++i;
+--i;
+
+Or as postincrement and postdecrement respectively:
+
+i++;
+i--;
+
+The pre- prefix indicates that the variable is modified, incremented or decremented, before its value is used in the expression. The post prefix indicates the variable is decremented or incremented after the value is used in the expression. Suppose the following:
+
+i = 100;
+printf("%i\n", ++i);
+
+The output is 101. Now suppose the following:
+
+i = 100;
+printf("%i\n", i++);
+
+Now the output is 100, but the value of i is 101.
+
+In relation to pointers, if textPtr is a character pointer hte expression:
+
+*(++textPtr)
+
+first increments the pointer and then fetches the character it points to, whereas the expression:
+
+*(textPtr++)
+
+fetches the character and then the value of the pointer is incremented.
+
+*** Operations on pointers
+
+You can add or substract integer values from pointers, you can compare them if they are equal or not or if one pointer is less than or greater than another pointer. You are also allowed to substract pointers of the same type, the result of this operation is the number of elements contained between the two pointers. The type of signed integer that is produced by subtracting two pointers is ptrdiff_t and is defined in the standard header file stddef.h.
+
 
 
