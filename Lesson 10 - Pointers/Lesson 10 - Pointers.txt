@@ -457,7 +457,7 @@ Suppose that you declare a variable of type int count, the system assigns locati
 
 When you apply the address operator, &, to a variable, the vaue that is generated is the actual address of that variable inside the computer's memory. This is illustrated using the following image:
 
-IMG9.PNG
+IMG10.PNG
 
 Applying the indirection operator to a pointer variable, as in the expression:
 
