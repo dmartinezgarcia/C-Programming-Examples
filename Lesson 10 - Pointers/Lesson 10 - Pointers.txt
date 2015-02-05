@@ -2,6 +2,8 @@
 
 In this chapter, you examine one of the most powerful features of the C programming language, which sets it apart from other programming languages. Pointers enable you to effectively represent complex data strucures, to change values passed as arguments to functions, to work with memory that has been allocated "dinamically" and to more concisely and efficiently deal with arrays. 
 
+The flexibility in defining pointers eextends beyond the concepts illustrated in this chapter. For example, you can define a pointer to a pointer and even a pointer to a pointer to a pointer. These concepts are beyond the scope of this book, although they are simply logical extensions of everything you've learned about pointers in this chapter.
+
 As you become proficient in the C language, you will find yourself using pointers in all aspects of the development process. This chapter covers a wide range of ways to implement pointers including:
 
 	- Defining simple pointers
@@ -423,5 +425,42 @@ fetches the character and then the value of the pointer is incremented.
 
 You can add or substract integer values from pointers, you can compare them if they are equal or not or if one pointer is less than or greater than another pointer. You are also allowed to substract pointers of the same type, the result of this operation is the number of elements contained between the two pointers. The type of signed integer that is produced by subtracting two pointers is ptrdiff_t and is defined in the standard header file stddef.h.
 
+*** Pointers to functions
 
+This is a feature of more advanced nature. When working with pointers and functions, the C compiler needs to know the pointer variable points to a function and also the type of value returned by that function as well as the number and types of its arguments. For example, to declare a variable fnPtr to be of type "pointer to function that returns an int and that takes no arguments", the declaration:
 
+int (*fnPtr) (void);
+
+can be written, the parentheses enclosing *fnPtr are required because if they are omitted the C compiler treats the preceding statement as the declaration of a function called fnPtr that returns a pointer to an int.
+
+Suppose the function function lookup returns an int and takes no arguments:
+
+int lookup (void);
+
+A definition must exist before you assign a function to a function pointer, so the precedent statement is necessary before you assign a function to the function pointer like this:
+
+fnPtr = lookup;
+
+You can use the function pointer to call the function using the function call operator, in this case:
+
+value = fnPtr();
+
+One common application for pointers is passing them as arguments to other functions. this is done by the functions in the standard C library.
+
+Another common application for function pointers is to create what is known as dispatch tables. You can't store functions themselves inside the elements of an array but it is valid to store function pointers inside an array.
+
+*** Pointers and memory addresses
+
+It's important to know how pointers are actually implemented. A computer's memory can be conceptualized as a sequential collection of storage cells. Each cell of the computer's memory has a number, called an address, associated with it. Tipically, the first address of a computer's memory is numbered zero. On most computer systems, a "cell" is called a "byte".
+
+Suppose that you declare a variable of type int count, the system assigns location or locations in memory to hold the value of count while the program is executing. This location might be at address 500, for example, inside the computer's memory. With C, memory addresses are automatically handled by the system. However, a unique memory address is associated with each variable.
+
+When you apply the address operator, &, to a variable, the vaue that is generated is the actual address of that variable inside the computer's memory. This is illustrated using the following image:
+
+IMG9.PNG
+
+Applying the indirection operator to a pointer variable, as in the expression:
+
+*intPtr;
+
+Has the effect of treating the value contained in the pointer variable as a memory address. The value stored at that memory address is then fetched and interpreted in accordance with the type declared for the pointer variable. In our example, the value stored at memory address 500 is fetched and interpreted a an integer, the result of the expression is 10.
