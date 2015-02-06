@@ -300,25 +300,249 @@
 		Write a pointer version of the sort() function from Chapter 7, “Working with Functions.” Be certain that pointers are exclusively used by the function, including index variables in the loops.
 *********************************************************/
 
+// Program to sort an array of integers into ascending order
+//
+//#include <stdio.h>
+//
+//void  sort (int* a, int* n)
+//{
+//    int i, *iPtr = &i;
+//    int j, *jPtr = &j;
+//    int temp, *tempPtr = &temp;
+//
+//    for ( *iPtr = 0;  *iPtr < *n - 1;  ++*iPtr )
+//        for ( *jPtr = *iPtr + 1;  *jPtr < *n;  ++*jPtr )
+//            if ( *(a + *iPtr) > *(a + *jPtr) )
+//            {
+//                *tempPtr = *(a + *iPtr);
+//                *(a + *iPtr) = *(a + *jPtr);
+//                *(a + *jPtr) = *tempPtr;
+//            }
+//}
+//
+//int main (void)
+//{
+//    int  i, n = 16;
+//    int  array[16] = {34, -5, 6, 0, 12, 100, 56, 22, 44, -3, -9, 12, 17, 22, 6, 11};
+//
+//    printf ("The array before the sort:\n");
+//    for ( i = 0;  i < 16;  ++i )
+//        printf ("%i ", array[i]);
+//
+//    sort (array, &n);
+//
+//    printf ("\n\nThe array after the sort:\n");
+//    for ( i = 0;  i < 16;  ++i )
+//        printf ("%i ", array[i]);
+//    printf ("\n");
+//
+//    return 0;
+//}
+
 /*********************************************************
     Exercise 8
 		Write a function called sort3() to sort three integers into ascending order. (This function is not to be implemented with arrays.)
 *********************************************************/
+
+//#include <stdio.h>
+//
+//void sort3 (int* a)
+//{
+//    // Bubble method from before, limited to 3 chars. Could be done better but for the sake of simplicity the above method was used.
+//    int i, *iPtr = &i;
+//    int j, *jPtr = &j;
+//    int temp, *tempPtr = &temp;
+//
+//    for ( *iPtr = 0;  *iPtr < 3 - 1;  ++*iPtr )
+//        for ( *jPtr = *iPtr + 1;  *jPtr < 3;  ++*jPtr )
+//            if ( *(a + *iPtr) > *(a + *jPtr) )
+//            {
+//                *tempPtr = *(a + *iPtr);
+//                *(a + *iPtr) = *(a + *jPtr);
+//                *(a + *jPtr) = *tempPtr;
+//            }
+//}
+//
+//int main (void)
+//{
+//    int array[] = {0, 2, -2};
+//    int i = 0;
+//
+//    printf ("The array before the sort:\n");
+//    for ( i = 0;  i < 3;  ++i )
+//        printf ("%i ", array[i]);
+//
+//    sort3 (array);
+//
+//    printf ("\n\nThe array after the sort:\n");
+//    for ( i = 0;  i < 3;  ++i )
+//        printf ("%i ", array[i]);
+//    printf ("\n");
+//
+//    return 0;
+//}
 
 /*********************************************************
     Exercise 9
 		Rewrite the readLine() function from Chapter 9 so that it uses a character pointer rather than an array.
 *********************************************************/
 
+#include <stdio.h>
+
+// Function to read a line of text from the terminal
+//
+//void  readLine (char* buffer)
+//{
+//    char  character;
+//    int   i = 0;
+//
+//    do
+//    {
+//        character = getchar ();
+//        *(buffer + i) = character;
+//        ++i;
+//    }  while ( character != '\n' );
+//
+//    *(buffer + i - 1) = '\0';
+//}
+//
+//int main (void)
+//{
+//    int   i;
+//    char  line[81];
+//
+//    printf("Key your line of text: \n");
+//    for ( i = 0; i < 3; ++i )
+//    {
+//        readLine (line);
+//        printf ("%s\n\n", line);
+//    }
+//
+//    return 0;
+//}
+
 /*********************************************************
     Exercise 10
 		Rewrite the compareStrings() function from Chapter 9 to use character pointers instead of arrays.
 *********************************************************/
 
+//#include <stdio.h>
+//
+//int  compareStrings (const char*  s1, const char*  s2)
+//{
+//    int  i = 0, answer;
+//
+//    while ( *(s1 + i) == *(s2 + i) && *(s1 + i) != '\0'&& *(s2 + i) != '\0' )
+//        ++i;
+//
+//    if ( *(s1 + i) < *(s2 + i) )
+//        answer = -1;               /* s1 < s2  */
+//    else if ( *(s1 + i) == *(s2 + i) )
+//        answer = 0;                 /* s1 == s2 */
+//    else
+//        answer = 1;                 /* s1 > s2  */
+//
+//    return answer;
+//}
+//
+//int main (void)
+//{
+//    const char string1[] = "HOLA";
+//    const char string2[] = "ADIOS";
+//    const char string3[] = "HOLA";
+//
+//    printf("Result of comparing \"%s\" and \"%s\" is: %i.\n", string1, string2, compareStrings(string1, string2));
+//    printf("Result of comparing \"%s\" and \"%s\" is: %i.\n", string1, string3, compareStrings(string1, string3));
+//    printf("Result of comparing \"%s\" and \"%s\" is: %i.\n", string2, string3, compareStrings(string2, string3));
+//
+//    return 0;
+//}
+
 /*********************************************************
     Exercise 11
 		Given the definition of a date structure as defined in this chapter, write a function called dateUpdate() that takes a pointer to a date structure as its argument and that updates the structure to the following day (see Program 8.4).
 *********************************************************/
+
+// Program to determine tomorrow's date
+
+//#include <stdio.h>
+//#include <stdbool.h>
+//
+//struct  date
+//{
+//    int  month;
+//    int  day;
+//    int  year;
+//};
+//
+//// Function to calculate tomorrow's date
+//
+//void dateUpdate (struct date*  today)
+//{
+//    int  numberOfDays (struct date  d);
+//
+//    if ( today->day != numberOfDays (*today) )
+//    {
+//        today->day = today->day + 1;
+//        today->month = today->month;
+//        today->year = today->year;
+//    }
+//    else if ( today->month == 12 )        // end of year
+//    {
+//        today->day = 1;
+//        today->month = 1;
+//        today->year = today->year + 1;
+//    }
+//    else                                 // end of month
+//    {
+//        today->day = 1;
+//        today->month = today->month + 1;
+//        today->year = today->year;
+//    }
+//}
+//
+//// Function to find the number of days in a month
+//
+//int  numberOfDays  (struct date  d)
+//{
+//    int  days;
+//    bool isLeapYear (struct date  d);
+//    const int  daysPerMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//
+//    if ( isLeapYear (d)  &&  d.month == 2 )
+//        days = 29;
+//    else
+//        days = daysPerMonth[d.month - 1];
+//
+//    return days;
+//}
+//
+//// Function to determine if it's a leap year
+//
+//bool  isLeapYear (struct date  d)
+//{
+//    bool  leapYearFlag;
+//
+//    if ( (d.year % 4 == 0  &&  d.year % 100 != 0)  || d.year % 400 == 0 )
+//        leapYearFlag = true;   // It's a leap year
+//    else
+//        leapYearFlag = false;  // Not a leap year
+//
+//    return leapYearFlag;
+//}
+//
+//int main (void)
+//{
+//    void  dateUpdate (struct date*  today);
+//    struct date  Day;
+//
+//    printf ("Enter today's date (mm dd yyyy): ");
+//    scanf ("%i%i%i", &Day.month, &Day.day, &Day.year);
+//    dateUpdate (&Day);
+//    printf ("Tomorrow's date is %i/%i/%.2i.\n", Day.month, Day.day, Day.year % 100);
+//
+//    return 0;
+//}
 
 /*********************************************************
     Exercise 12
@@ -351,4 +575,39 @@
             printf (format, x);
 *********************************************************/
 
+//#include <stdio.h>
+//
+//int main (void)
+//{
+//    char  *message = "Programming in C is fun\n";
+//    char  message2[] = "You said it\n";
+//    char  *format  = "x = %i\n";
+//    int   x = 100;
+//
+//    // Set 1
+//    printf("\n\n SET 1\n");
+//    printf ("Programming in C is fun\n");
+//    printf ("%s", "Programming in C is fun\n");
+//    printf ("%s", message);
+//    printf (message);
+//    // Set 2
+//    printf("\n\n SET 2\n");
+//    printf ("You said it\n");
+//    printf ("%s", message2);
+//    printf (message2);
+//    printf ("%s", &message2[0]);
+//    // Set 3
+//    printf("\n\n SET 3\n");
+//    printf ("said it\n");
+//    printf (message2 + 4);
+//    printf ("%s", message2 + 4);
+//    printf ("%s", &message2[4]);
+//    // Set 4
+//    printf("\n\n SET 4\n");
+//    printf ("x = %i\n", x);
+//    printf (format, x);
+//
+//    return 0;
+//}
+//
 
