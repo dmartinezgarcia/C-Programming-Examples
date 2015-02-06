@@ -34,6 +34,9 @@
 		<Unit filename="Lesson 1 - Some Fundamentals/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 10 - Pointers/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Lesson 2 - Compiling and Running your program/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
