@@ -1,0 +1,141 @@
+*** Lesson 11 - Operation on Bits
+
+The C language was developed with systems programming applications in mind. System programmers frequently must get in and twiddle with the bits of particular computer words. In this chapter you will learn how to manipulate bits with C-programming operators, including:
+
+	- The bitwise AND operator
+	- The bitwise inclusive OR operator
+	- The bitwise exclusive OR operator
+	- The ones complement operator
+	- The left shift operator
+	- The right shift operator
+	- Bit fields
+
+*** The basics of bits
+
+On most computer systems, a byte consists of eight smaller units called bits, which can assume a value of zero or one. A byte can be conceptualized as a string of eight bits:
+
+01100100
+
+The rightmost bit of a byte is known as the least significant or low-order bit, whereas the leftmost bit is known as the most significant or high-order bit. To represent negative numbers, most computers used the twos complement notation. In this notation, the high-order bit represents the sign bit, if this bit is one, the number is negative, if this bit is zero, the number is positive. The remaining bits represent the value of the number.
+
+The twos complement notation limits the range of a variable because of the sign bit, you can use the unsigned modifier to state that a variable will only contain positive numbers, this can effectively increase the range of a variable.
+
+A convenient way to convert a negative number from decimal to binary is to first add 1 to the value, express the absolute value of the result in binary, and then complement all the bits, this means changing all the ones to zeros and all the zeros to ones.
+
+A convenient way to convert a negative number from binary back to decimal is to first complement all of the bits (changing ones to zeros and zeros to ones), convert the result to decimal, change the sign of the result and then substract 1.
+
+*** Bit operators
+
+The list of C operators you can use to manipulate bits can be found in the following table:
+
+IMG1.PNG
+
+All of the operators listed in the table are binary operators, which means they take two operands, except for the ones complement operator, which is an unary operator. Bit operations can be performed on any type of integer value in C (int, short, long, long long, signed, unsigned) and on characters, but can't be performed on floating point values.
+
+*** The bitwise AND operator
+
+When two valuse are ANDed in C, the binary representations of the values are compared bit by bit. The truth table for this operations is as follows:
+
+IMG2.PNG
+
+So, for example, if w1 and w2 are defined as short ints, and w1 is set equal to 25 and w2 is set equal to 77, then the C statement:
+
+w3 = w1 & w2;
+
+can be conceptualized as follows:
+
+IMG3.PNG
+
+Do not confuse the logical AND operator (&&), which is only true if both operands are true, with the bitwise AND operator. The latter is frequently used for masking operations. That is, this operator can be used to easily set specific bits of a data item to zero. Binary bit operators can also be used as assignment operators like this:
+
+word &= 15;
+
+Which performs the same function as:
+
+word = word & 15;
+
+When working with constants, is usually more convenient to express them in hexadecimal or octal notation, depending on the size of the data. Doing this will aid readability.
+
+*** The bitwise Inclusive OR operator
+
+When two values are bitwise inclusive-ORed in C, the binary representation of the two values are once again compared bit by bit. The truth table for this operator is:
+
+IMG4.PNG
+
+So, if w1 is an unsigned int equal to octal 0431 and w2 is an unsigned int equal to octal 0152, then a bitwise inclusive-OR of w1 and w2 can be written as:
+
+w3 = w1 | w2;
+
+And conceptualized as:
+
+IMG5.PNG
+
+Do not confuse the bitwise ORing (|) with the logical ORing (||), the latter is used to determine if either of two logical values is true.
+
+Bitwise Inclusive-ORing is frequently used to set some specified bis of a word to one.
+
+*** The bitwise exclusive OR operator
+
+The bitwise exclusive OR operator, which is often called the XOR operator, is another binary operator. The truth table is as follows:
+
+IMG6.PNG
+
+If w1 and w2 were set to octal 0536 and octal 0266 respectively, then the XOR prodecure can be written as:
+
+w3 = w1 ^ w2;
+
+And illustrated as:
+
+IMG7.PNG
+
+One interesting property is that a value XORed with itself produces a zero value. This was used in assembly to set a variable to zero or to compare if two values were equal, however this doesn't save time in C and makes the program more obscure, so it's not recommended.
+
+Another interesting application of the XOR is to swap the value of two variables without the need for an extra variable:
+
+i1 ^= i2;
+i2 ^= i1;
+i1 ^= i2;
+
+*** The ones complement operator
+
+This is an unary operator, and its effect is to flip the bits of its operand. The truth table for this operator is quite simple:
+
+IMG8.PNG
+
+If w1 is a short int, 16 bits wide, and is set to eqal 0122457, then the ones complement operator can be written as follows:
+
+w1 = ~w1;
+
+And conceptualized as:
+
+IMG10.PNG
+
+The ones complement operator should not be confused with the arithmetic minus operator (-) or with the logical negation operator (!).
+
+The ones complement operator is useful when you don't now the precise bit size of the quantity that you are dealing within an operation. Its use can help make a program more portable. For example, to set the low-order bit of an int called w1 to zero, you can AND w1 with an int consisting of all 1s except for a single zero in the rightmost bit. So a statement in C such as:
+
+w1 &= 0xFFFFFFFE;
+
+works fine on machines in which an integer is represented by 32 bits, if you replace the preceding statement with:
+
+w1 &= ~1;
+
+w1 gets ANDed with the correct value on any machine because the ones complement of 1 is calculated and consists of as many leftmost one bits as are necessary to fill the size of an int.
+
+*** The left shift operator:
+
+When a left shift operation is performed on a value, the bits contained in the value are literally shifted to the left. Associated with this operation is the number of bits that the value is to be shifted. Bits that are shifted out through the high-order bit of the data item are lost, and zeros are always shifted in through the low-order bit of the value. For example:
+
+w1 = w1 << 2; // Can also be written as w1 <<= 2.
+
+Can be conceptualized in the following images:
+
+IMG10.PNG
+
+And the second shift:
+
+IMG11.PNG
+
+
+
+
