@@ -1,0 +1,466 @@
+*** Lesson 10 - Pointers
+
+In this chapter, you examine one of the most powerful features of the C programming language, which sets it apart from other programming languages. Pointers enable you to effectively represent complex data strucures, to change values passed as arguments to functions, to work with memory that has been allocated "dinamically" and to more concisely and efficiently deal with arrays. 
+
+The flexibility in defining pointers eextends beyond the concepts illustrated in this chapter. For example, you can define a pointer to a pointer and even a pointer to a pointer to a pointer. These concepts are beyond the scope of this book, although they are simply logical extensions of everything you've learned about pointers in this chapter.
+
+As you become proficient in the C language, you will find yourself using pointers in all aspects of the development process. This chapter covers a wide range of ways to implement pointers including:
+
+	- Defining simple pointers
+	- Using pointers in common C expressions
+	- Implementing pointers to structures, arrays and functions
+	- Using pointers to create linked lists
+	- Applying the const keyword to pointers
+	- Passing pointers as arguments to functions
+
+These are some of the most challenging topics in the C programming learning process, once you gain a fundamental understanding of these topics your programs will gain significant elegance and power.
+
+*** Pointers and indirection
+
+A pointer provides an indirect means of accesing the value of a particular data item. 
+
+*** Defining a pointer variable
+
+You can create a pointer variable using the indirection operator, *, like this:
+
+(type) * (name);
+
+The indirection operator in the statement above tells the C compiler that the variable is of type "pointer to (type)". The value of a C pointer is meaningless until set to point to something.
+
+An example of the above:
+
+int *int_pointer;
+
+You can use the address operator, &, to make a pointer to an object in C like this:
+
+&(variable);
+
+The precedent expression creates a pointer to that variable that can be assigned to any pointer variable that has been declared as a pointer to the same type as that variable.
+
+For example:
+
+int count = 10;
+int *int_pointer = &count;
+
+The link that is created by these two statements can be conceptualized in the following image.
+
+IMG1.PNG
+
+The image illustrates that int_pointer does not directly contain the value of count, but a pointer to the variable count.
+
+To reference the contents of count through the pointer variable you use the indirection operator, *, like this:
+
+*(variable);
+
+So for example the following statement:
+
+x = *int_pointer;
+
+Would make X equal to the current value of count, which is 10.
+
+The indirection operator and address operator have higher precedence than all the binary operators in C.
+
+*** Working with pointers and structures
+
+You can define a variable to be a pointer to a structure like this:
+
+struct date
+{
+	int month;
+	int day;
+	int year;
+};
+
+struct date today = {9, 25, 2015};
+struct date *datePtr = &today;
+
+The following image illustrates the preceding statements:
+
+IMG2.PNG
+
+After such statement has been made, you can access the members of the structure in the following way:
+
+(*x).y;
+
+The parentheses are necessary because the structure member operator, ., has higher precedence than the indirection operator.
+
+The precedent statement can be written in a simple way using the structure pointer operator, ->, which permits expressions like the above to be written as:
+
+x->y;
+
+The structure pointer operator has the same precedence as the structure member operator. In expressions where both operators are used, the operators are evaluated from left to right.
+
+An example could be the following:
+
+(*date).month;
+date->month;
+
+*** Structures containing pointers
+
+Pointers can also be declared inside structures, as in the following example:
+
+struct intPtrs
+{
+	int *p1;
+	int *p2;
+};
+
+Then you can use the structure like in the same fashion as described in the precedent examples:
+
+struct intPtrs Pointers;
+int i1 = 100, i2 = -97;
+
+Pointers.p1 = &i1;
+Pointers.p2 = &i2;
+
+The following image illustrates the statements above:
+
+IMG3.PNG
+
+*** The null pointer
+
+A null pointer is not necessarily internally represented as the value zero. Homewer, the compiler must recognize assignment of the constant zero to a pointer as assigning the null pointer. This also applies to comparing a pointer against the constant zero. The compiler interprets it as a test to see if the pointer is null.
+
+*** Linked Lists
+
+Linked lists are very powerful as they greatly simplify operations such as the insertion and removal of elements in large lists.
+
+Pointers to structures and structures containing pointers allow you to create linked lists, hash lists, doubly linked lists and trees.
+
+The following program defines a linked list using structures:
+
+struct entry
+{
+	int					value;
+	struct entry		*next;
+};
+
+struct entry n1, n2, n3;
+
+n1.value = 100;
+n2.value = 200;
+n3.value = 300;
+
+n1.next = &n2;
+n2.next = &n3;
+
+This can be conceptualized using the following image:
+
+IMG4.PNG
+
+The following statement can be used to remove an element from a linked list:
+
+n1.next = n2.next;
+
+The following image illustrates the precedent statement:
+
+IMG5.PNG
+
+Adding elements to the list is also straight forward, the following statement does exactly that:
+
+n2_3.next = n2.next;
+n2.next = &n2_3;
+
+Which does the following:
+
+IMG6.PNG
+
+As you can notice one of the main motivations for the use of a linked list approach for storing information is that entries of the list do not have to be stored sequentially in memory, as is the case with alemens in an array.
+
+There needs to be a way to identify the beginning of the list. Often, a pointer to the start of the list is kept, which is performed in the following example:
+
+struct entry *list_pointer = &n1;
+
+The second issue to be discussed involves the idea of having some way to identify the end of the list. By convention this is usually done with the null pointer, and you can do it as follows:
+
+n3.next = (struct entry *) 0;
+
+The type cast is not necessary but it increases readability, there is other way to make the null pointer more readable aswell using macros.
+
+The precedent statements can be conceptualized in the following image:
+
+IMG7.PNG
+
+The following loop can be used to cycle through the linked list:
+
+while ( list_pointer != (struct entry *) 0 )
+{
+	...
+	list_pointer = list_pointer->next;
+	...
+}
+
+Using linked lists instead of arrays to organize large chunks of data has its advantages: easy removal of elements, easy insertion of elements... but it also has one major drawbac, there is no faster way to search a linked list other than by straight, sequential search because each entry in the list can only be accessed by the previous one. This can be solved using trees, hash tables...
+
+In practice, you will not normally link together list entries that have been explicitly defined like in the program examples so far. In actual practice, you will tipically ask the system to give you memory for each new list entry and you will link it into the list while the program is executing. This is done using dynamic memory allocation.
+
+*** The keyword const and pointers
+
+In this case, there are two things to consider: whether the pointer will be changed, and whether the value that the pointer points to will be changed.
+
+Suppose the following declarations:
+
+char c = 'X';
+char * const charPtr = &c;
+
+And the following statements:
+
+char * const charPtr = &c;
+
+(Read this as "charPtr is a constant pointer to a character"). In this case, a statement like this is not valid:
+
+charPtr = %d;
+
+If instead, you define charPtr like this:
+
+const char *charPtr = &c;
+
+(Read this as "charPtr points to a constant character"). This means that it won't be changed by statement like this:
+
+*charPtr = 'Y';
+
+But this is possible:
+
+c = 'Z';
+
+But the precedent declaration basically means is that the character c won't be changed through the pointer variable charPtr.
+
+In cases in which both the pointer variable and the location it points to will not be changed through the pointer, the following declaration can be used:
+
+const char * const *charPtr = &c;
+
+The first use of const says the contents of the location the pointer references will not be changed and the second use of const says that the pointer itself will not be changed.
+
+*** Pointers and functions
+
+You can pass a pointer as an argument to a function in the normal fashion, and you can also have a function return a pointer as its result.
+
+Following with the linked list examples, you can define the function print_list like:
+
+void print_list (struct entry *pointer)
+{
+	....
+}
+
+And then call it as follows:
+
+print_list(list_pointer);
+
+Then the formal parameter pointer can be used as a normal pointer variable. Note that the value of the pointer is copied into the formal parameter when the function is called, so any changes made to the pointer will not reflect on the original varible, however, both the formal parameter and the original pointer variable reference the same contents of data, which can be changed through the formal parameter inside the function. Without the use of pointers, you could not have written your exchange function to exchange the value of two integers because you are limited to returning only a single value from a function and because the function can't permanently change the value of its arguments.
+
+You can also make a function return a pointer variable like this:
+
+struct entry *findEntry (...)
+{
+	...
+}
+
+*** Pointers and arrays
+
+One of the most common uss of pointers in C is as pointers to arrays. The main reasons for using pointers to arrays are notational convenience and program efficiency. Pointers to arrays generally result in code that uses less memory and executes faster.
+
+Suppose the following:
+
+int values[100];
+int *valuesPtr;
+
+When you define a pointer that is used to point to the elements of an array, you don't designate the pointer as "pointer to array", rather, you designate the pointer as pointing to the type of element that is contained in the array. To set the valuesPtr to point to the first element in the values array, you simply write:
+
+valuesPtr = values;
+
+The address operator is not used in this case because the C compiler treats the appearance of an array name without a subscript as a pointer to the array. So the statement above is equal to:
+
+valuesPtr = &values[0];
+
+The following image illustrates the results:
+
+IMG8.PNG
+
+The real power of using pointers to arrays comes into play when accessing the elements.
+
+In general, if "a" is an array of elements of type "x", "px" is of type "pointer to x" and "i" and "n" are integer constants or variables, the statement
+
+px = a;
+
+sets "px" to point to the first element of "a", and the expression:
+
+*(px + i)
+
+references the value contained in a[i]. Furthermore, the statement:
+
+px += n;
+
+sets "px" to point "n" elements farther in the array, no matter what type of element is contained in the array.
+
+Examples of the above are the following:
+
+valuesPtr = values;
+*(valuesPtr + 3) = 3; // Equal to valuesPtr[3] = 3;
+valuesPtr = &values[i]; // Equal to valuesPtr += 1; if valuesPtr previously points to values[0].
+
+The increment operator, ++, and decrement operator, --, are handy when dealing with pointers. Applying the former has the same effect as adding one to the pointer, while applying the decrement operator has the same effect as subtracting one from the pointer.
+
+You can compare two variables in C, this can be useful when comparing two pointers in the same array, you can test the current pointer to see if it points past the end of the array, for example:
+
+valuesPtr > &values[99]
+
+You can replace the preceding expression with its equivalent:
+
+valuesPtr > values + 99;
+
+*** A slight digression about program optimization
+
+Suppose the following expression:
+
+for (...; pointer <= array + n; ...)
+
+It's actually better to create something like this:
+
+int const arrayEnd = array + n;
+
+for (...; pointer <= arrayEnd; ...)
+
+The sole motivation for this is optimization. Each time through the for loop, the looping conditions are evaluated. By evaluating it once before the loop is entered, you save the time that would otherwise be spent reevaluating this expression each time through the loop. 
+
+Other issue involving optimization regarding pointers. In general, the process of indexing an array takes more time to execute than does the process of accessing the contents of a pointer. This is one of the main reasons why pointers are used to access the elements of an array, the code generated is generally more efficient. In code, what this means is that:
+
+*ptr;
+
+Is faster than :
+
+ptr[i];
+
+If access to the array is not generally sequential, pointers accomplish nothing, as far as this issue is concerned, because the expression:
+
+*(pointer + i);
+
+Takes as long to execute as:
+
+pointer[j];
+
+*** Is it an array or is it a pointer?
+
+To pass an array to a function you specify the name of the array, to produce a pointer to an array you need only specify the name of the array. It all comes down to the fact discussed previously, if "x" is an array of any type, the expression x[i] can always be equivalently expressed in C as *(x + i).
+
+Pointers and arrays are intimately related in C, this is why you can declare an array to be of type "array of ints" or to be of type "pointer to int". Either declaration works fine, if you are going to be using index numbers to reference elements of an array that is passed to a function, declare the corresponding formal parameter as an array. Similarly, if you are using the argument as a pointer to the array, declare it to be of type pointer.
+
+*** Pointers to character strings
+
+One of the most common applications of using a pointer to an array is as a pointer to a character string. The reasons are ones of notational convenience and efficiency.
+
+Using pointers, the following function:
+
+void copyString (char  *to, char  *from)
+{
+     for (  ;  *from != '\0';  ++from, ++to )
+          *to = *from;
+
+     *to = '\0';
+}
+
+Could be replaced by the following:
+
+void copyString (char  *to, char  *from)
+{
+     for (  ;  *from != '\0';  ++from, ++to )
+          *to = *from;
+		  
+     *to = '\0';
+}
+
+*** Constant Character Strings and Pointers
+
+Whenever a constant character string is used in C, it is a pointer to that character string that is produced. So the following statements are valid:
+
+char *textPtr;
+textPtr = "A character string";
+
+There is a distinction between character pointers and character arrays, as the type of assignment just shown is not valid with a character array. The only situation where this is allowed is when initializing the array, and in this case the individual characters are stored inside the positions of the array.
+
+A more clear example could be declaring an array of char pointers like this:
+
+char *days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+The array contains seven entries, each a pointer to a character string. So days[0] contains a pointer to the character string "Sunday". The following image helps conceptualize this idea:
+
+IMG9.PNG
+
+*** The increment and decrement operators revisited
+
+These operators have the effect of adding or substract 1 to the value of the variable x. If x is a pointer to an array, this has the effect of setting x to point to the next element of the array.
+
+Increment and decrement operators can be used as preincrement and predecrement respectively:
+
+++i;
+--i;
+
+Or as postincrement and postdecrement respectively:
+
+i++;
+i--;
+
+The pre- prefix indicates that the variable is modified, incremented or decremented, before its value is used in the expression. The post prefix indicates the variable is decremented or incremented after the value is used in the expression. Suppose the following:
+
+i = 100;
+printf("%i\n", ++i);
+
+The output is 101. Now suppose the following:
+
+i = 100;
+printf("%i\n", i++);
+
+Now the output is 100, but the value of i is 101.
+
+In relation to pointers, if textPtr is a character pointer hte expression:
+
+*(++textPtr)
+
+first increments the pointer and then fetches the character it points to, whereas the expression:
+
+*(textPtr++)
+
+fetches the character and then the value of the pointer is incremented.
+
+*** Operations on pointers
+
+You can add or substract integer values from pointers, you can compare them if they are equal or not or if one pointer is less than or greater than another pointer. You are also allowed to substract pointers of the same type, the result of this operation is the number of elements contained between the two pointers. The type of signed integer that is produced by subtracting two pointers is ptrdiff_t and is defined in the standard header file stddef.h.
+
+*** Pointers to functions
+
+This is a feature of more advanced nature. When working with pointers and functions, the C compiler needs to know the pointer variable points to a function and also the type of value returned by that function as well as the number and types of its arguments. For example, to declare a variable fnPtr to be of type "pointer to function that returns an int and that takes no arguments", the declaration:
+
+int (*fnPtr) (void);
+
+can be written, the parentheses enclosing *fnPtr are required because if they are omitted the C compiler treats the preceding statement as the declaration of a function called fnPtr that returns a pointer to an int.
+
+Suppose the function function lookup returns an int and takes no arguments:
+
+int lookup (void);
+
+A definition must exist before you assign a function to a function pointer, so the precedent statement is necessary before you assign a function to the function pointer like this:
+
+fnPtr = lookup;
+
+You can use the function pointer to call the function using the function call operator, in this case:
+
+value = fnPtr();
+
+One common application for pointers is passing them as arguments to other functions. this is done by the functions in the standard C library.
+
+Another common application for function pointers is to create what is known as dispatch tables. You can't store functions themselves inside the elements of an array but it is valid to store function pointers inside an array.
+
+*** Pointers and memory addresses
+
+It's important to know how pointers are actually implemented. A computer's memory can be conceptualized as a sequential collection of storage cells. Each cell of the computer's memory has a number, called an address, associated with it. Tipically, the first address of a computer's memory is numbered zero. On most computer systems, a "cell" is called a "byte".
+
+Suppose that you declare a variable of type int count, the system assigns location or locations in memory to hold the value of count while the program is executing. This location might be at address 500, for example, inside the computer's memory. With C, memory addresses are automatically handled by the system. However, a unique memory address is associated with each variable.
+
+When you apply the address operator, &, to a variable, the vaue that is generated is the actual address of that variable inside the computer's memory. This is illustrated using the following image:
+
+IMG10.PNG
+
+Applying the indirection operator to a pointer variable, as in the expression:
+
+*intPtr;
+
+Has the effect of treating the value contained in the pointer variable as a memory address. The value stored at that memory address is then fetched and interpreted in accordance with the type declared for the pointer variable. In our example, the value stored at memory address 500 is fetched and interpreted a an integer, the result of the expression is 10.
