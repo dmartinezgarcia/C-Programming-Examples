@@ -136,6 +136,82 @@ And the second shift:
 
 IMG11.PNG
 
+Left shifting actually has the effect of multiplying the value that is shifted by two. In fact, some C compilers automatically perform multiplication by a power of two by left shifting the value the appropiate number of places because shifting is a much faster operation than multiplication on most computers.
 
+It should be noted that C language does not produce a defined result if an attempt is made to shift a value to the left by an amount that is greater than or equal to the number of bits in the size of the data item. Shifting left a value by a negative amount will also cause an undefined result.
 
+*** The right shift function
 
+The right shift operator >> shifts the bits of a value to the right. Bits shifted out of the low-order bit of the value are lost. Right shifting an unsigned value always results in zeros being shifted in on the left, through the high-order bits. What is shifted in on the left for signed values depends on the sign of the value that is being shifted and also on how this operation is implemented on your computer system. If the sign bit is zero (meaning the value is positive), zeros are shifted in regardless of which machine you are running. If the sign bit is 1, on some machines 1s are shifted in, and on others zeros are shifted in. This former type of operation is known as an arithmetic right shift, whereas the latter is known as a logical right shift.
+
+Never make any assumptions about whether a system implements an arithmetic or a logical right shift. A program that shifts signed values right might work correctly on one system but fail on another due to this type of assumption. 
+
+If w1 is set to equal 0xF777EE22, then shifting one place to the right can be written with the statement:
+
+w1 >>= 1;
+
+This can be illustrated with the following image:
+
+IMG12.PNG
+
+It should be noted that C language does not produce a defined result if an attempt is made to shift a value to the right by an amount that is greater than or equal to the number of bits in the size of the data item. Shifting right a value by a negative amount will also cause an undefined result.
+
+*** Bit Fields
+
+Bit operations are frequently performed on data items that contain packed information. For example, an 32 bit wide integer can contain up to 32 flags that can be used for true/false conditions. Representing each flag using a _Bool variable would take a byte each flag, and a lot of memory would be wasted.
+
+Two methods are available in C that can be used to pack information together to make better use of memory. One way is to simply represent the data inside a normal int and then access the desired bits of the int using the bit operators described in the previous sections.
+
+To describe this first method, assume you have an integer where you want to store data, particularly three flags (f1, f2, f3) a fourth value which ranges from 1 to 255 (type) and the final value is an integer which ranges from 0 to 100000 (index). This can be conceptualized in the following image:
+
+IMG13.PNG
+
+For example, you can set the field type to the value contained in the eight low order bits of n using the following statement:
+
+packed_data = (packed_data & ~(0xFF << 18)) | ((n & 0xFF) << 18);
+
+And to extract the field type to an external variable:
+
+n = (packed_data >> 18) & 0xFF;
+
+The second method is to use a more convenient way, using a special syntax in the structure definition that allows you to define a field of bits and assign a name to that field. Whenever the term bit fields is applied to C, it is this approach that is referenced.
+
+You can define the same packed data item as before using this structure:
+
+struct packed_struct
+{
+	unsigned int	:3;
+	unsigned int	f1:1;
+	unsigned int	f2:1;
+	unsigned int	f3:1;
+	unsigned int	type:8;
+	unsigned int	index:18;	
+};
+
+The structure packed_struct is defined to contain six members. The first member is not named. The :3 specifies three unnamed bits. f1, f2 and f3 are also unsigned int and are one bit long each. Similarly for type and index.
+
+The C compiler automatically packs the preceding bit field definitions together, now the fields of a variable defined to be of type packed_struct can now be referenced in the same convenient way normal structure members are referenced. For example:
+
+packed_data.type = 7;
+n = packed_data.type;
+i = packed_data.index / 5 + 1;
+if (packed_data.f2)...
+
+There is no guarantee whether the fields are assigned from left to right or from right to left. This should only be a problem when you are dealing with data that was created by a different program or a different machine. You can also include normal data types within a structure that contains bit fields:
+
+struct table_entry
+{
+	int				count;
+	char			c;
+	unsigned int	f1:1;
+	unsigned int	f2:1;
+};
+
+Some considerations regarding bit fields:
+	- They can only be declared of integer or _Bool type.
+	- If just int is used in the declaration, it's implementation dependent whether this is interpreted as a signed or unsigned value.
+	- You cannot have arrays of bit fields.
+	- You cannot take the address of a bit field, there is no such thing as a type "pointer to bit field".
+	- Bit fields are packed into units as they appear in the structure definition, where the size of a unit is defined by the implementation and is most likely a word.
+	- The C compiler does not rearrange the bit field definitions to try to optimize storage space.
+	- An unnamed field of length zero can be used to force align the next field in the structure at the start of a unit boundary.
