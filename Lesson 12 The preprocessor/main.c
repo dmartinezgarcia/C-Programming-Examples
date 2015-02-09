@@ -123,6 +123,23 @@
 		Write a macro IS_DIGIT that gives a nonzero value if a character is a digit '0' through '9'. Use this macro in the definition of another macro IS_SPECIAL, which gives a nonzero result if a character is a special character; that is, not alphabetic and not a digit. Be certain to use the IS_ALPHABETIC macro developed in exercise 7.
 *********************************************************/
 
+//#include <stdio.h>
+//
+//#define IS_LOWER_CASE(x)    ( ((x) <= 'z' && (x) >= 'a') ? 1 : 0)
+//#define IS_UPPER_CASE(x)    ( ((x) <= 'Z' && (x) >= 'A') ? 1 : 0)
+//#define IS_ALPHABETIC(x)    ( (IS_LOWER_CASE(x) || IS_UPPER_CASE(x)) ? 1 : 0 )
+//#define IS_DIGIT(x)         ( ((x) >= '0' && (x) <= '9') ? 1 : 0 )
+//#define IS_SPECIAL(x)       ( (IS_DIGIT(x) || IS_ALPHABETIC(x)) ? 0 : 1 )
+//
+//int main (void)
+//{
+//    char c = '1';
+//
+//    printf("Is %c an special character? %i.\n", c, IS_SPECIAL(c));
+//
+//    return 0;
+//}
+
 /*********************************************************
     Exercise 9
 		Write a macro ABSOLUTE_VALUE that computes the absolute value of its argument. Make certain that an expression such as
@@ -132,9 +149,23 @@
         is properly evaluated by the macro.
 *********************************************************/
 
+//#include <stdio.h>
+//
+//#define ABSOLUTE_VALUE(x)   ( (x) < 0 ? (-(x)) : (x) )
+//
+//int main (void)
+//{
+//    signed int a = 12;
+//    signed int b = 40;
+//
+//    printf("The absolute value of %i is %i.\n", a - b, ABSOLUTE_VALUE(a - b));
+//
+//    return 0;
+//}
+
 /*********************************************************
     Exercise 10
-        Consider the definition of the printint macro from this chapter:
+        Consider the definition of the printx macro from this chapter:
 
             #define printint(n)  printf ("%i\n", x ## n)
 
@@ -144,8 +175,26 @@
                 printx (i);
 *********************************************************/
 
+// No it can't. It's not the value of the variable that it's concatenated to x but the name of the variable i.
+
+//#include <stdio.h>
+//
+//#define printx(n)  printf ("%i\n", x ## n)
+//
+//int main (void)
+//{
+//    int x1 = 1, x2 = 2, x3 = 3, x4 = 4, x5 = 5, x6 = 6;
+//    int i = 0;
+//
+//    for (i = 1; i < 100; ++i)
+//        printx (i);
+//
+//    return 0;
+//}
+
 /*********************************************************
     Exercise 11
         Test the system library functions that are equivalent to the macros you developed in the preceding three exercises. The library functions are called isupper, isalpha, and isdigit. You need to include the system header file <ctype.h> in your program in order to use them.
 *********************************************************/
 
+// They produce the same results.
