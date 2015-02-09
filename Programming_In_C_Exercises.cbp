@@ -37,6 +37,12 @@
 		<Unit filename="Lesson 10 - Pointers/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 11 - Operation on bits/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lesson 12 The preprocessor/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Lesson 2 - Compiling and Running your program/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
