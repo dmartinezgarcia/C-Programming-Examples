@@ -46,6 +46,9 @@
 		<Unit filename="Lesson 13 - Extending Data Types With The Enumerated Data Type, Type Definitions And Type Conversions/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 14 Working with larger programs/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Lesson 2 - Compiling and Running your program/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
