@@ -49,6 +49,9 @@
 		<Unit filename="Lesson 14 Working with larger programs/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Lesson 16 - Miscellaneous And Advanced Features/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Lesson 2 - Compiling and Running your program/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
