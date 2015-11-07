@@ -77,7 +77,7 @@ defines `x` to contain a single member that is called either `c`, `f`, or `i`. I
 x.c = 'K';
 x.f = 786.3869;
 x.i = count / 2;
-```c
+```
 
 Only one value can be stored at a time, and is the programmer's responsibility to ensure that the value retrieved from a union is consistent with the way it was last stored in the union.
 
